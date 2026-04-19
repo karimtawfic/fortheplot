@@ -1,0 +1,212 @@
+[
+  {
+    "id": "dare_social_001",
+    "text": "Get a complete stranger to high-five you",
+    "points": 20,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_social_002",
+    "text": "Convince someone nearby to do a dance move with you",
+    "points": 40,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_social_003",
+    "text": "Ask a stranger for their best local food recommendation",
+    "points": 20,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_social_004",
+    "text": "Get someone to teach you a word in a language you don't speak",
+    "points": 30,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_social_005",
+    "text": "Find someone wearing the same color as you and take a photo together",
+    "points": 25,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_social_006",
+    "text": "Get a stranger to tell you their favorite joke",
+    "points": 30,
+    "category": "social",
+    "active": true
+  },
+  {
+    "id": "dare_physical_001",
+    "text": "Do 10 jumping jacks in a public place",
+    "points": 30,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_physical_002",
+    "text": "Sprint to the nearest tree and back",
+    "points": 25,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_physical_003",
+    "text": "Find the tallest staircase nearby and climb it",
+    "points": 50,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_physical_004",
+    "text": "Do a cartwheel (or best attempt) on grass",
+    "points": 40,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_physical_005",
+    "text": "Hold a plank for 30 seconds on any flat surface",
+    "points": 35,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_physical_006",
+    "text": "Find a hill and roll down it",
+    "points": 70,
+    "category": "physical",
+    "active": true
+  },
+  {
+    "id": "dare_creative_001",
+    "text": "Draw a portrait of a teammate in under 2 minutes",
+    "points": 50,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_creative_002",
+    "text": "Make a 10-second song using only objects around you",
+    "points": 60,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_creative_003",
+    "text": "Build something with found objects and photograph it",
+    "points": 45,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_creative_004",
+    "text": "Recreate a famous painting pose using your surroundings",
+    "points": 80,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_creative_005",
+    "text": "Write a haiku about your current location out loud",
+    "points": 40,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_creative_006",
+    "text": "Perform a 15-second shadow puppet show on any wall",
+    "points": 55,
+    "category": "creative",
+    "active": true
+  },
+  {
+    "id": "dare_food_001",
+    "text": "Find the spiciest thing on any menu nearby and order it",
+    "points": 50,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_food_002",
+    "text": "Order something you have genuinely never tried before",
+    "points": 30,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_food_003",
+    "text": "Photograph a food item you've never seen before",
+    "points": 25,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_food_004",
+    "text": "Create the most ridiculous food combo possible from what's available",
+    "points": 45,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_food_005",
+    "text": "Ask a local what their absolute favorite dish is",
+    "points": 20,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_food_006",
+    "text": "Eat something using only your non-dominant hand",
+    "points": 15,
+    "category": "food",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_001",
+    "text": "Find a natural landmark and photograph it dramatically",
+    "points": 30,
+    "category": "outdoor",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_002",
+    "text": "Spot and photograph 3 different bird species",
+    "points": 60,
+    "category": "outdoor",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_003",
+    "text": "Find and photograph the oldest-looking building in sight",
+    "points": 35,
+    "category": "outdoor",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_004",
+    "text": "Collect 5 different types of leaves and display them",
+    "points": 40,
+    "category": "outdoor",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_005",
+    "text": "Find something perfectly circular in nature and photograph it",
+    "points": 50,
+    "category": "outdoor",
+    "active": true
+  },
+  {
+    "id": "dare_outdoor_006",
+    "text": "Find a water reflection and photograph something in it",
+    "points": 45,
+    "category": "outdoor",
+    "active": true
+  }
+]

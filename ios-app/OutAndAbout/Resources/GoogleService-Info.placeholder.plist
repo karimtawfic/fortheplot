@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PLACEHOLDER FILE — DO NOT USE FOR BUILDING
+
+  To set up the iOS app:
+  1. Go to https://console.firebase.google.com
+  2. Select your project → Project Settings → Your apps → iOS
+  3. Download the real GoogleService-Info.plist
+  4. Copy it to this same directory as GoogleService-Info.plist
+  5. The real file is gitignored and should NEVER be committed
+-->
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>GOOGLE_APP_ID</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>API_KEY</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>BUNDLE_ID</key>
+	<string>com.outandabout.app</string>
+	<key>PROJECT_ID</key>
+	<string>REPLACE_WITH_REAL_VALUE</string>
+	<key>STORAGE_BUCKET</key>
+	<string>REPLACE_WITH_REAL_VALUE.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+</dict>
+</plist>

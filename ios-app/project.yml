@@ -1,0 +1,68 @@
+name: OutAndAbout
+options:
+  bundleIdPrefix: com.outandabout
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.4"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  SWIFT_VERSION: 5.10
+  MARKETING_VERSION: 1.0.0
+  CURRENT_PROJECT_VERSION: 1
+
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: 10.24.0
+
+targets:
+  OutAndAbout:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: OutAndAbout
+    resources:
+      - path: OutAndAbout/Resources
+    plist:
+      path: OutAndAbout/Info.plist
+      properties:
+        CFBundleDisplayName: Out & About
+        CFBundleIdentifier: com.outandabout.app
+        NSCameraUsageDescription: Camera is needed to capture dare proof photos and videos.
+        NSPhotoLibraryUsageDescription: Photo library access is needed to upload dare proof.
+        NSPhotoLibraryAddUsageDescription: Save your completed dare media and reels to your photos.
+        NSMicrophoneUsageDescription: Microphone access is needed to record dare proof videos.
+        UILaunchStoryboardName: ""
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    dependencies:
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseStorage
+      - package: Firebase
+        product: FirebaseFunctions
+      - package: Firebase
+        product: FirebaseAnalytics
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.outandabout.app
+      SWIFT_VERSION: 5.10
+      TARGETED_DEVICE_FAMILY: 1
+      INFOPLIST_FILE: OutAndAbout/Info.plist
+
+  OutAndAboutTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: OutAndAboutTests
+    dependencies:
+      - target: OutAndAbout
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.outandabout.app.tests

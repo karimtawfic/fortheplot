@@ -1,0 +1,78 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── Helpers ─────────────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return request.auth.uid == uid;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isVideo() {
+      return request.resource.contentType.matches('video/.*');
+    }
+
+    function isMediaFile() {
+      return isImage() || isVideo();
+    }
+
+    function isUnder50MB() {
+      return request.resource.size < 50 * 1024 * 1024;
+    }
+
+    function isUnder200MB() {
+      return request.resource.size < 200 * 1024 * 1024;
+    }
+
+    // ─── Player Avatars ───────────────────────────────────────────────────────
+
+    match /avatars/{userId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(userId)
+        && isImage()
+        && isUnder50MB();
+    }
+
+    // ─── Dare Submission Media ────────────────────────────────────────────────
+
+    match /submissions/{roomId}/{playerId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(playerId)
+        && isMediaFile()
+        && isUnder200MB();
+    }
+
+    // ─── Submission Thumbnails ────────────────────────────────────────────────
+
+    match /thumbnails/{roomId}/{playerId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(playerId)
+        && isImage()
+        && isUnder50MB();
+    }
+
+    // ─── Reels (render worker writes via admin SDK — client read only) ─────────
+
+    match /reels/{roomId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if false; // render worker uses admin SDK, bypasses rules
+    }
+
+    // ─── Deny everything else ─────────────────────────────────────────────────
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

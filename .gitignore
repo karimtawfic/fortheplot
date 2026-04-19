@@ -1,0 +1,89 @@
+# ============================================================
+# Xcode
+# ============================================================
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+xcuserdata/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xccheckout
+*.xcscmblueprint
+build/
+.build/
+
+# ============================================================
+# Firebase / Google
+# ============================================================
+# NEVER commit real Firebase config files
+ios-app/**/GoogleService-Info.plist
+!ios-app/**/GoogleService-Info.placeholder.plist
+*-service-account.json
+.firebaserc
+functions/.runtimeconfig.json
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+storage-debug.log
+
+# ============================================================
+# Node / Functions
+# ============================================================
+node_modules/
+functions/lib/
+functions/.env
+render-worker/dist/
+render-worker/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================================
+# Environment / Secrets
+# ============================================================
+.env
+.env.local
+.env.*.local
+*.env
+config.local.*
+
+# ============================================================
+# macOS
+# ============================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ============================================================
+# JetBrains IDEs
+# ============================================================
+.idea/
+*.iml
+
+# ============================================================
+# VS Code
+# ============================================================
+.vscode/
+!.vscode/extensions.json
+
+# ============================================================
+# Docker
+# ============================================================
+render-worker/.env
+
+# ============================================================
+# Test artifacts
+# ============================================================
+coverage/
+*.lcov
+junit.xml
