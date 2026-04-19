@@ -1,8 +1,8 @@
 [
   {
-    "id": "dare_social_001",
-    "text": "Get a complete stranger to high-five you",
-    "points": 20,
+    "id": "dare_ibiza_001",
+    "text": "Make a New Friend",
+    "points": 5,
     "category": "social",
     "active": true,
     "repeatable": false,
@@ -10,23 +10,23 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_physical_006",
-    "text": "Find a hill and roll down it",
-    "points": 70,
+    "id": "dare_ibiza_008",
+    "text": "Get on Stage",
+    "points": 20,
     "category": "physical",
     "active": true,
     "repeatable": false,
-    "verificationMode": "media_required",
+    "verificationMode": "admin_review",
     "difficulty": "wild"
   },
   {
-    "id": "dare_creative_004",
-    "text": "Recreate a famous painting pose using your surroundings",
-    "points": 80,
+    "id": "dare_ibiza_029",
+    "text": "Snap a Photo with a Famous Person",
+    "points": 20,
     "category": "creative",
     "active": true,
     "repeatable": false,
     "verificationMode": "admin_review",
-    "difficulty": "hard"
+    "difficulty": "wild"
   }
 ]

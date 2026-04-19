@@ -1,31 +1,116 @@
 id,text,points,category,active,repeatable,verificationMode,difficulty
-dare_social_001,"Get a complete stranger to high-five you",20,social,true,false,media_required,easy
-dare_social_002,"Convince someone nearby to do a dance move with you",40,social,true,false,media_required,medium
-dare_social_003,"Ask a stranger for their best local food recommendation",20,social,true,false,media_required,easy
-dare_social_004,"Get someone to teach you a word in a language you don't speak",30,social,true,false,media_required,medium
-dare_social_005,"Find someone wearing the same color as you and take a photo together",25,social,true,false,media_required,easy
-dare_social_006,"Get a stranger to tell you their favorite joke",30,social,true,false,media_required,easy
-dare_physical_001,"Do 10 jumping jacks in a public place",30,physical,true,false,media_required,easy
-dare_physical_002,"Sprint to the nearest tree and back",25,physical,true,false,media_required,easy
-dare_physical_003,"Find the tallest staircase nearby and climb it",50,physical,true,false,media_required,medium
-dare_physical_004,"Do a cartwheel (or best attempt) on grass",40,physical,true,false,media_required,hard
-dare_physical_005,"Hold a plank for 30 seconds on any flat surface",35,physical,true,false,media_required,medium
-dare_physical_006,"Find a hill and roll down it",70,physical,true,false,media_required,wild
-dare_creative_001,"Draw a portrait of a teammate in under 2 minutes",50,creative,true,false,media_required,medium
-dare_creative_002,"Make a 10-second song using only objects around you",60,creative,true,false,media_required,hard
-dare_creative_003,"Build something with found objects and photograph it",45,creative,true,false,media_required,medium
-dare_creative_004,"Recreate a famous painting pose using your surroundings",80,creative,true,false,admin_review,hard
-dare_creative_005,"Write a haiku about your current location out loud",40,creative,true,false,media_required,medium
-dare_creative_006,"Perform a 15-second shadow puppet show on any wall",55,creative,true,false,media_required,medium
-dare_food_001,"Find the spiciest thing on any menu nearby and order it",50,food,true,false,media_required,hard
-dare_food_002,"Order something you have genuinely never tried before",30,food,true,false,media_required,easy
-dare_food_003,"Photograph a food item you've never seen before",25,food,true,false,media_required,easy
-dare_food_004,"Create the most ridiculous food combo possible from what's available",45,food,true,false,admin_review,medium
-dare_food_005,"Ask a local what their absolute favorite dish is",20,food,true,false,media_required,easy
-dare_food_006,"Eat something using only your non-dominant hand",15,food,true,false,media_required,easy
-dare_outdoor_001,"Find a natural landmark and photograph it dramatically",30,outdoor,true,false,media_required,easy
-dare_outdoor_002,"Spot and photograph 3 different bird species",60,outdoor,true,false,admin_review,hard
-dare_outdoor_003,"Find and photograph the oldest-looking building in sight",35,outdoor,true,false,media_required,easy
-dare_outdoor_004,"Collect 5 different types of leaves and display them",40,outdoor,true,false,media_required,medium
-dare_outdoor_005,"Find something perfectly circular in nature and photograph it",50,outdoor,true,false,media_required,medium
-dare_outdoor_006,"Find a water reflection and photograph something in it",45,outdoor,true,false,media_required,medium
+dare_ibiza_001,Make a New Friend,5,social,true,false,media_required,easy
+dare_ibiza_002,Get a Group Photo,7,creative,true,false,media_required,easy
+dare_ibiza_003,Dance on a Platform,10,physical,true,false,media_required,medium
+dare_ibiza_004,Get a DJ Shoutout,15,social,true,false,media_required,hard
+dare_ibiza_005,Start a Conga Line,12,physical,true,false,media_required,medium
+dare_ibiza_006,Compliment a Stranger,5,social,true,false,media_required,easy
+dare_ibiza_007,Buy a Drink for Someone,8,food,true,false,media_required,medium
+dare_ibiza_008,Get on Stage,20,physical,true,false,admin_review,wild
+dare_ibiza_009,Use a Foreign Phrase,6,social,true,false,media_required,easy
+dare_ibiza_010,Take a Creative Group Selfie,10,creative,true,false,media_required,easy
+dare_ibiza_011,Compliment the DJ or Performer,5,social,true,false,media_required,easy
+dare_ibiza_012,Win a Dance-off,15,physical,true,false,media_required,hard
+dare_ibiza_013,Get a High Five,7,social,true,false,media_required,easy
+dare_ibiza_014,Exchange Contact Info,10,social,true,false,media_required,medium
+dare_ibiza_015,Wear Something Unusual,8,social,true,false,media_required,medium
+dare_ibiza_016,Order in a Different Accent,7,food,true,false,media_required,easy
+dare_ibiza_017,Get a Stranger to Join Your Group,12,social,true,false,media_required,medium
+dare_ibiza_018,Body Shot,15,food,true,false,media_required,hard
+dare_ibiza_019,Start a Chant,10,social,true,false,media_required,medium
+dare_ibiza_020,Impress with a Skill,10,social,true,false,media_required,medium
+dare_ibiza_021,Take a Picture with a Staff Member,7,creative,true,false,media_required,easy
+dare_ibiza_022,Get a Compliment,8,social,true,false,media_required,easy
+dare_ibiza_023,Get Someone to Buy You a Drink,15,food,true,false,media_required,hard
+dare_ibiza_024,Join Another Group,10,social,true,false,media_required,medium
+dare_ibiza_025,Do a Party Trick,8,social,true,false,media_required,medium
+dare_ibiza_026,Sing Along,10,social,true,false,media_required,easy
+dare_ibiza_027,Get a Piggyback Ride,15,physical,true,false,media_required,hard
+dare_ibiza_028,Compliment a Couple,5,social,true,false,media_required,easy
+dare_ibiza_029,Snap a Photo with a Famous Person,20,creative,true,false,admin_review,wild
+dare_ibiza_030,Get a Number,12,social,true,false,media_required,hard
+dare_ibiza_031,Teach Someone a Dance Move,8,social,true,false,media_required,medium
+dare_ibiza_032,Take a Sunset Picture,5,outdoor,true,false,media_required,easy
+dare_ibiza_033,"Get a Stranger to Shout ""Ibiza!""",10,social,true,false,media_required,medium
+dare_ibiza_034,Convince Someone to Wear Your Hat,6,social,true,false,media_required,medium
+dare_ibiza_035,Make a Toast,10,social,true,false,media_required,easy
+dare_ibiza_036,Get a Selfie with a Lifeguard,10,creative,true,false,media_required,medium
+dare_ibiza_037,Get a Group Cheer,8,social,true,false,media_required,easy
+dare_ibiza_038,Find the Tallest Person,10,social,true,false,media_required,easy
+dare_ibiza_039,Get a Piggyback Ride from a Stranger,15,physical,true,false,media_required,hard
+dare_ibiza_040,Get Someone to Share a Drink,10,food,true,false,media_required,medium
+dare_ibiza_041,Start a Clap Circle,12,social,true,false,media_required,medium
+dare_ibiza_042,Wear Sunglasses Indoors,5,social,true,false,media_required,easy
+dare_ibiza_043,Convince Someone to Dance,8,social,true,false,media_required,medium
+dare_ibiza_044,Compliment Someone's Shoes,5,social,true,false,media_required,easy
+dare_ibiza_045,Get a Stranger to Wear Your Hat,7,social,true,false,media_required,easy
+dare_ibiza_046,Get Someone to Play a Game with You,8,social,true,false,media_required,medium
+dare_ibiza_047,Lead a Group Dance,10,physical,true,false,media_required,medium
+dare_ibiza_048,Convince a Stranger to Sing,10,social,true,false,media_required,medium
+dare_ibiza_049,Find Someone with the Same Name,12,social,true,false,media_required,medium
+dare_ibiza_050,Take a Picture with a Statue or Decor,7,creative,true,false,media_required,easy
+dare_ibiza_051,Get Someone to Teach You Something,10,social,true,false,media_required,medium
+dare_ibiza_052,"Get Someone to Say ""Ibiza Forever""",8,social,true,false,media_required,easy
+dare_ibiza_053,Join Another Group for a Song,10,social,true,false,media_required,medium
+dare_ibiza_054,Compliment a Stranger's Smile,5,social,true,false,media_required,easy
+dare_ibiza_055,Do a Shot with a Stranger,15,food,true,false,media_required,hard
+dare_ibiza_056,Get Someone to Teach You a Phrase,8,social,true,false,media_required,easy
+dare_ibiza_057,Get a High-Five Chain,10,social,true,false,media_required,medium
+dare_ibiza_058,Take a Photo with a Group of Girls,12,creative,true,false,media_required,medium
+dare_ibiza_059,Find a Look-Alike,10,social,true,false,media_required,medium
+dare_ibiza_060,Create a Human Pyramid,15,physical,true,false,media_required,hard
+dare_ibiza_061,Start a Sing-Along,12,social,true,false,media_required,medium
+dare_ibiza_062,Swap an Accessory,10,social,true,false,media_required,medium
+dare_ibiza_063,Get Someone to Say Their Favorite Ibiza Memory,8,social,true,false,media_required,easy
+dare_ibiza_064,Buy a Souvenir for Someone,12,social,true,false,media_required,medium
+dare_ibiza_065,Create a Human Tunnel,15,physical,true,false,media_required,hard
+dare_ibiza_066,Convince Someone to Try a New Drink,8,food,true,false,media_required,medium
+dare_ibiza_071,Get Someone to Tell a Joke,7,social,true,false,media_required,easy
+dare_ibiza_072,Order a Drink Using Sign Language,10,food,true,false,media_required,medium
+dare_ibiza_073,Compliment a Bartender,5,social,true,false,media_required,easy
+dare_ibiza_074,High-Five a Security Guard,8,social,true,false,media_required,easy
+dare_ibiza_075,Find Someone with a Unique Tattoo and Compliment It,10,social,true,false,media_required,easy
+dare_ibiza_076,Get a Stranger to Dance Salsa with You,12,physical,true,false,media_required,medium
+dare_ibiza_077,Get Someone to Teach You a Word in a New Language,8,social,true,false,media_required,easy
+dare_ibiza_078,Make a Toast in Another Language,10,social,true,false,media_required,medium
+dare_ibiza_079,Get Someone to Try on Your Sunglasses,6,social,true,false,media_required,easy
+dare_ibiza_080,Get a Stranger to Join Your Selfie,7,creative,true,false,media_required,easy
+dare_ibiza_081,Get Someone to Show You Their Favorite Dance Move,8,physical,true,false,media_required,easy
+dare_ibiza_082,Start a Group Selfie Chain,10,creative,true,false,media_required,medium
+dare_ibiza_083,Convince a Stranger to Tell You Their Favorite Song,8,social,true,false,media_required,easy
+dare_ibiza_084,Buy a Group of Strangers a Drink,15,food,true,false,media_required,hard
+dare_ibiza_085,Get Someone to Recommend a Place in Ibiza,6,social,true,false,media_required,easy
+dare_ibiza_086,Compliment Someone's Hat,5,social,true,false,media_required,easy
+dare_ibiza_087,Get Someone to Show You a Magic Trick,12,social,true,false,media_required,medium
+dare_ibiza_088,Take a Picture with a Beach Ball,7,creative,true,false,media_required,easy
+dare_ibiza_089,Get a Stranger to Imitate an Animal Sound,10,social,true,false,media_required,medium
+dare_ibiza_090,Get a Stranger to Recite a Line from a Movie,8,social,true,false,media_required,medium
+dare_ibiza_091,Get Someone to Show You a Yoga Pose,10,physical,true,false,media_required,medium
+dare_ibiza_092,Get a Stranger to Play Air Guitar with You,10,social,true,false,media_required,medium
+dare_ibiza_093,Get a Stranger to Teach You a Handshake,8,social,true,false,media_required,easy
+dare_ibiza_094,Get Someone to Do the Wave with You,12,social,true,false,media_required,easy
+dare_ibiza_096,Get a Stranger to Wear Your Sunglasses,6,social,true,false,media_required,easy
+dare_ibiza_097,Find Someone with the Same Favorite Drink as You,8,social,true,false,media_required,medium
+dare_ibiza_098,Get Someone to Sing Their National Anthem,15,social,true,false,media_required,hard
+dare_ibiza_099,Get a Stranger to Teach You a Slang Word from Their Country,8,social,true,false,media_required,easy
+dare_ibiza_100,Find Out Someone's Favorite Ibiza Spot,6,social,true,false,media_required,easy
+dare_ibiza_101,Convince Someone to Give You a Nickname,10,social,true,false,media_required,medium
+dare_ibiza_102,Get a Stranger to Show You Their Favorite Emoji,7,social,true,false,media_required,easy
+dare_ibiza_103,Get Someone to Take a Picture of You,5,creative,true,false,media_required,easy
+dare_ibiza_104,Start a Group Huddle,12,social,true,false,media_required,medium
+dare_ibiza_105,Convince a Stranger to Join You for a Dance Battle,15,physical,true,false,media_required,hard
+dare_ibiza_106,Get a Stranger to Name a Celebrity They Admire,6,social,true,false,media_required,easy
+dare_ibiza_107,Get Someone to Teach You a Card Trick,10,social,true,false,media_required,medium
+dare_ibiza_108,Find Someone with the Same Star Sign as You,8,social,true,false,media_required,medium
+dare_ibiza_109,Get a Stranger to Tell You Their Favorite Ice Cream Flavor,5,social,true,false,media_required,easy
+dare_ibiza_110,Convince Someone to Share Their Travel Story,10,social,true,false,media_required,easy
+dare_ibiza_111,Get Someone to Guess Your Age,7,social,true,false,media_required,easy
+dare_ibiza_112,Get a Stranger to Show You a Family Photo,8,social,true,false,media_required,easy
+dare_ibiza_113,Convince a Stranger to Sing a Duet with You,15,social,true,false,media_required,hard
+dare_ibiza_114,Find Someone Who Has Visited More Than 3 Countries,10,social,true,false,media_required,medium
+dare_ibiza_115,Get a Stranger to Teach You a Dance Move from Their Culture,12,physical,true,false,media_required,medium
+dare_ibiza_116,Find Someone Who Has Been to Ibiza Before,8,social,true,false,media_required,easy
+dare_ibiza_117,Get a Stranger to Give You a Compliment,5,social,true,false,media_required,easy
+dare_ibiza_118,Get Someone to Say a Tongue Twister,7,social,true,false,media_required,medium
+dare_ibiza_119,Get a Stranger to Teach You a Word in Their Native Language,8,social,true,false,media_required,easy
+dare_ibiza_120,Get Someone to Share Their Favorite Memory from the Trip,10,social,true,false,media_required,easy
