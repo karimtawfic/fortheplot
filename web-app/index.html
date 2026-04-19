@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0" />
+
+    <!-- PWA primary color -->
+    <meta name="theme-color" content="#0D0D1A" />
+    <meta name="background-color" content="#0D0D1A" />
+
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Out &amp; About" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- SEO -->
+    <meta name="description" content="The social dare game. Complete real-world dares with photo/video proof. Score points, compete live, get highlight reels." />
+    <meta property="og:title" content="Out &amp; About" />
+    <meta property="og:description" content="The social dare game." />
+    <meta property="og:type" content="website" />
+
+    <!-- Prevent layout shift on mobile -->
+    <style>
+      html, body, #root {
+        margin: 0; padding: 0;
+        height: 100%;
+        background: #0D0D1A;
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        overscroll-behavior: none;
+      }
+      #root { display: flex; flex-direction: column; }
+    </style>
+
+    <title>Out &amp; About</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
