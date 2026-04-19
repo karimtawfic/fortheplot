@@ -1,0 +1,32 @@
+[
+  {
+    "id": "dare_social_001",
+    "text": "Get a complete stranger to high-five you",
+    "points": 20,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_physical_006",
+    "text": "Find a hill and roll down it",
+    "points": 70,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "wild"
+  },
+  {
+    "id": "dare_creative_004",
+    "text": "Recreate a famous painting pose using your surroundings",
+    "points": 80,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "admin_review",
+    "difficulty": "hard"
+  }
+]

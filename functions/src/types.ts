@@ -35,6 +35,8 @@ export interface Player {
 // ─── Dare ─────────────────────────────────────────────────────────────────────
 
 export type DareCategory = "social" | "physical" | "creative" | "food" | "outdoor";
+export type VerificationMode = "none" | "media_required" | "ai_check" | "admin_review";
+export type DareDifficulty = "easy" | "medium" | "hard" | "wild";
 
 export interface Dare {
   dareId: string;
@@ -42,11 +44,26 @@ export interface Dare {
   points: number;
   category: DareCategory;
   active: boolean;
+  repeatable: boolean;
+  verificationMode: VerificationMode;
+  difficulty: DareDifficulty;
+  createdAt?: admin.firestore.Timestamp;
+  updatedAt?: admin.firestore.Timestamp;
 }
 
 // ─── Submission ───────────────────────────────────────────────────────────────
 
-export type MediaType = "photo" | "video";
+export type MediaType = "image" | "video";
+export type VerificationStatus = "pending" | "approved" | "rejected" | "needs_review";
+export type VerificationSource = "rule_engine" | "ai" | "admin";
+
+export interface SubmissionMetadata {
+  fileSizeBytes?: number;
+  durationSeconds?: number;
+  mimeType?: string;
+  width?: number;
+  height?: number;
+}
 
 export interface DareSubmission {
   submissionId: string;
@@ -55,11 +72,18 @@ export interface DareSubmission {
   dareId: string;
   dareTextSnapshot: string;
   pointsAwarded: number;
+  pointsPotential: number;
   mediaType: MediaType;
   mediaUrl: string;
   thumbnailUrl: string;
   createdAt: admin.firestore.Timestamp;
   renderEligible: boolean;
+  verificationStatus: VerificationStatus;
+  verificationReason?: string;
+  verificationSource?: VerificationSource;
+  verifiedAt?: admin.firestore.Timestamp;
+  duplicateOfSubmissionId?: string;
+  metadata?: SubmissionMetadata;
 }
 
 // ─── ScoreEntry ───────────────────────────────────────────────────────────────
@@ -124,15 +148,19 @@ export interface StartGameResult {
 }
 
 export interface SubmitDarePayload {
+  submissionId: string;
   roomId: string;
   dareId: string;
   mediaType: MediaType;
   mediaUrl: string;
   thumbnailUrl: string;
+  metadata?: SubmissionMetadata;
 }
 
 export interface SubmitDareResult {
   submissionId: string;
   pointsAwarded: number;
   newTotal: number;
+  verificationStatus: VerificationStatus;
+  verificationReason?: string;
 }

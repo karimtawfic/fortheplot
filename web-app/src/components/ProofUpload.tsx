@@ -9,7 +9,7 @@ import { currentUID } from "../lib/auth";
 interface ProofUploadProps {
   dare: Dare;
   roomId: string;
-  onSuccess: (pointsAwarded: number) => void;
+  onSuccess: (pointsAwarded: number, status: string) => void;
   onCancel: () => void;
 }
 
@@ -23,6 +23,7 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [pointsEarned, setPointsEarned] = useState(0);
+  const [verificationStatus, setVerificationStatus] = useState("");
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -34,13 +35,17 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
   async function handleSubmit() {
     if (!selectedFile) return;
     const uid = currentUID();
+
+    // Generate submissionId client-side so it can be embedded in the Storage path
+    const submissionId = crypto.randomUUID();
+    const basePath = `rooms/${roomId}/players/${uid}/submissions/${submissionId}`;
+
     setStage("uploading");
     setErrorMsg("");
 
     try {
       const isVideo = selectedFile.type.startsWith("video/");
       const ext = isVideo ? "mp4" : "jpg";
-      const basePath = `submissions/${roomId}/${uid}/${crypto.randomUUID()}`;
 
       let blob: Blob;
       let thumbBlob: Blob;
@@ -54,22 +59,28 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
       }
 
       const [mediaResult, thumbResult] = await Promise.all([
-        uploadMedia(`${basePath}.${ext}`, blob, selectedFile.type, setProgress),
-        uploadMedia(`${basePath}_thumb.jpg`, thumbBlob, "image/jpeg"),
+        uploadMedia(`${basePath}/original.${ext}`, blob, selectedFile.type, setProgress),
+        uploadMedia(`${basePath}/thumb.jpg`, thumbBlob, "image/jpeg"),
       ]);
 
       setStage("submitting");
       const result = await submitDare({
+        submissionId,
         roomId,
         dareId: dare.dareId,
         mediaUrl: mediaResult.url,
         thumbnailUrl: thumbResult.url,
-        mediaType: isVideo ? "video" : "photo",
+        mediaType: isVideo ? "video" : "image",
+        metadata: {
+          fileSizeBytes: selectedFile.size,
+          mimeType: selectedFile.type,
+        },
       });
 
       setPointsEarned(result.pointsAwarded);
+      setVerificationStatus(result.verificationStatus);
       setStage("done");
-      setTimeout(() => onSuccess(result.pointsAwarded), 1200);
+      setTimeout(() => onSuccess(result.pointsAwarded, result.verificationStatus), 1400);
     } catch (err: unknown) {
       setStage("error");
       setErrorMsg(err instanceof Error ? err.message : "Upload failed");
@@ -77,11 +88,20 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
   }
 
   if (stage === "done") {
+    const isPending = verificationStatus === "needs_review" || verificationStatus === "pending";
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-12">
-        <span className="text-6xl">🎉</span>
-        <p className="text-white font-bold text-xl">Dare completed!</p>
-        <PointsBadge points={pointsEarned} size="lg" />
+        <span className="text-6xl">{isPending ? "🕐" : "🎉"}</span>
+        <p className="text-white font-bold text-xl">
+          {isPending ? "Submitted!" : "Dare completed!"}
+        </p>
+        {isPending ? (
+          <p className="text-white/60 text-sm text-center px-4">
+            {verificationStatus === "needs_review" ? "Awaiting host approval" : "Verifying…"}
+          </p>
+        ) : (
+          <PointsBadge points={pointsEarned} size="lg" />
+        )}
       </div>
     );
   }

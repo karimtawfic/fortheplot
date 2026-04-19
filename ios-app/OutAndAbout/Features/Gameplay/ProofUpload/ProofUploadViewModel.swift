@@ -8,7 +8,7 @@ enum ProofUploadState {
     case compressing
     case uploading(progress: Double)
     case submitting
-    case success(pointsAwarded: Int)
+    case success(pointsAwarded: Int, verificationStatus: VerificationStatus)
     case failure(String)
 }
 
@@ -19,7 +19,7 @@ final class ProofUploadViewModel: ObservableObject {
     @Published var selectedVideoURL: URL?
     @Published var videoThumbnail: UIImage?
     @Published var uploadState: ProofUploadState = .idle
-    @Published var mediaType: MediaType = .photo
+    @Published var mediaType: MediaType = .image
     @Published var showCamera = false
 
     private let storageService = StorageService.shared
@@ -50,7 +50,7 @@ final class ProofUploadViewModel: ObservableObject {
                 selectedImage = image
                 selectedVideoURL = nil
                 videoThumbnail = nil
-                mediaType = .photo
+                mediaType = .image
             }
         } catch {
             uploadState = .failure("Failed to load image: \(error.localizedDescription)")
@@ -80,13 +80,11 @@ final class ProofUploadViewModel: ObservableObject {
 
     func setVideo(url: URL) async {
         mediaType = .video
-        // Compress video
         if let compressedURL = await compressVideo(url: url) {
             selectedVideoURL = compressedURL
         } else {
             selectedVideoURL = url
         }
-        // Generate thumbnail
         videoThumbnail = await generateThumbnail(url: selectedVideoURL ?? url)
         selectedImage = nil
         uploadState = .idle
@@ -96,7 +94,7 @@ final class ProofUploadViewModel: ObservableObject {
         selectedImage = image
         selectedVideoURL = nil
         videoThumbnail = nil
-        mediaType = .photo
+        mediaType = .image
         uploadState = .idle
     }
 
@@ -106,21 +104,28 @@ final class ProofUploadViewModel: ObservableObject {
         guard hasMedia else { return }
 
         do {
-            // Compress and upload
-            let (mediaUrl, thumbnailUrl) = try await uploadMedia(dare: dare, roomId: roomId, playerId: playerId)
+            // Generate submissionId before upload so it can be embedded in the Storage path
+            let submissionId = UUID().uuidString.lowercased()
+            let (mediaUrl, thumbnailUrl, fileSizeBytes) = try await uploadMedia(
+                dare: dare,
+                roomId: roomId,
+                playerId: playerId,
+                submissionId: submissionId
+            )
 
-            // Call submitDare Cloud Function
             uploadState = .submitting
-            let submission = try await submissionRepo.submit(
+            let result = try await submissionRepo.submit(
+                submissionId: submissionId,
                 dare: dare,
                 roomId: roomId,
                 mediaType: mediaType,
                 mediaUrl: mediaUrl,
-                thumbnailUrl: thumbnailUrl
+                thumbnailUrl: thumbnailUrl,
+                metadata: ["fileSizeBytes": fileSizeBytes, "mimeType": mediaType == .image ? "image/jpeg" : "video/mp4"]
             )
 
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            uploadState = .success(pointsAwarded: submission.pointsAwarded)
+            uploadState = .success(pointsAwarded: result.pointsAwarded, verificationStatus: result.verificationStatus)
 
         } catch {
             uploadState = .failure(error.localizedDescription)
@@ -128,48 +133,49 @@ final class ProofUploadViewModel: ObservableObject {
         }
     }
 
-    private func uploadMedia(dare: Dare, roomId: String, playerId: String) async throws -> (mediaUrl: String, thumbnailUrl: String) {
-        let uuid = UUID().uuidString
+    private func uploadMedia(
+        dare: Dare,
+        roomId: String,
+        playerId: String,
+        submissionId: String
+    ) async throws -> (mediaUrl: String, thumbnailUrl: String, fileSizeBytes: Int) {
+        let basePath = "rooms/\(roomId)/players/\(playerId)/submissions/\(submissionId)"
         var mediaUrl = ""
         var thumbnailUrl = ""
+        var fileSizeBytes = 0
 
-        if mediaType == .photo, let image = selectedImage {
+        if mediaType == .image, let image = selectedImage {
             guard let data = image.jpegData(compressionQuality: 0.8) else {
                 throw StorageServiceError.compressionFailed
             }
-            let path = "submissions/\(roomId)/\(playerId)/\(uuid).jpg"
+            fileSizeBytes = data.count
+            let path = "\(basePath)/original.jpg"
             uploadState = .uploading(progress: 0)
             mediaUrl = try await storageService.uploadMedia(data: data, path: path, contentType: "image/jpeg") { [weak self] progress in
-                Task { @MainActor in
-                    self?.uploadState = .uploading(progress: progress)
-                }
+                Task { @MainActor in self?.uploadState = .uploading(progress: progress) }
             }
             thumbnailUrl = mediaUrl
 
         } else if mediaType == .video, let videoURL = selectedVideoURL {
             let videoData = try Data(contentsOf: videoURL)
-            let path = "submissions/\(roomId)/\(playerId)/\(uuid).mp4"
+            fileSizeBytes = videoData.count
+            let path = "\(basePath)/original.mp4"
             uploadState = .uploading(progress: 0)
             mediaUrl = try await storageService.uploadMedia(data: videoData, path: path, contentType: "video/mp4") { [weak self] progress in
-                Task { @MainActor in
-                    self?.uploadState = .uploading(progress: progress * 0.9) // reserve 10% for thumbnail
-                }
+                Task { @MainActor in self?.uploadState = .uploading(progress: progress * 0.9) }
             }
 
-            // Upload thumbnail
             if let thumb = videoThumbnail, let thumbData = thumb.jpegData(compressionQuality: 0.7) {
-                let thumbPath = "thumbnails/\(roomId)/\(playerId)/\(uuid)_thumb.jpg"
+                let thumbPath = "\(basePath)/thumb.jpg"
                 thumbnailUrl = try await storageService.uploadMedia(data: thumbData, path: thumbPath, contentType: "image/jpeg") { [weak self] progress in
-                    Task { @MainActor in
-                        self?.uploadState = .uploading(progress: 0.9 + progress * 0.1)
-                    }
+                    Task { @MainActor in self?.uploadState = .uploading(progress: 0.9 + progress * 0.1) }
                 }
             } else {
                 thumbnailUrl = mediaUrl
             }
         }
 
-        return (mediaUrl, thumbnailUrl)
+        return (mediaUrl, thumbnailUrl, fileSizeBytes)
     }
 
     // MARK: - Media Helpers
@@ -177,24 +183,15 @@ final class ProofUploadViewModel: ObservableObject {
     private func compressVideo(url: URL) async -> URL? {
         await withCheckedContinuation { continuation in
             let asset = AVURLAsset(url: url)
-            guard let exportSession = AVAssetExportSession(
-                asset: asset,
-                presetName: AVAssetExportPresetMediumQuality
-            ) else {
-                continuation.resume(returning: nil)
-                return
+            guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) else {
+                continuation.resume(returning: nil); return
             }
             let outputURL = FileManager.default.temporaryDirectory
-                .appendingPathComponent(UUID().uuidString)
-                .appendingPathExtension("mp4")
+                .appendingPathComponent(UUID().uuidString).appendingPathExtension("mp4")
             exportSession.outputURL = outputURL
             exportSession.outputFileType = .mp4
             exportSession.exportAsynchronously {
-                if exportSession.status == .completed {
-                    continuation.resume(returning: outputURL)
-                } else {
-                    continuation.resume(returning: nil)
-                }
+                continuation.resume(returning: exportSession.status == .completed ? outputURL : nil)
             }
         }
     }
@@ -207,11 +204,7 @@ final class ProofUploadViewModel: ObservableObject {
             generator.maximumSize = CGSize(width: 400, height: 600)
             let time = CMTime(seconds: 0.5, preferredTimescale: 600)
             generator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, result, _ in
-                if result == .succeeded, let cgImage {
-                    continuation.resume(returning: UIImage(cgImage: cgImage))
-                } else {
-                    continuation.resume(returning: nil)
-                }
+                continuation.resume(returning: (result == .succeeded && cgImage != nil) ? UIImage(cgImage: cgImage!) : nil)
             }
         }
     }
