@@ -1,6 +1,6 @@
-import { httpsCallable } from "firebase/functions";
 import { collection, query, where, orderBy } from "firebase/firestore";
-import { functions, db } from "../firebase";
+import { db } from "../firebase";
+import { callApi } from "../lib/api";
 import { subscribeCollection } from "../lib/firestore";
 import type { DareSubmission } from "../types";
 
@@ -11,16 +11,10 @@ interface SubmitDareArgs {
   thumbnailUrl: string;
   mediaType: "photo" | "video";
 }
-interface SubmitDareResult {
-  submissionId: string;
-  pointsAwarded: number;
-}
+interface SubmitDareResult { submissionId: string; pointsAwarded: number; }
 
-export async function submitDare(args: SubmitDareArgs): Promise<SubmitDareResult> {
-  const fn = httpsCallable<SubmitDareArgs, SubmitDareResult>(functions, "submitDare");
-  const result = await fn(args);
-  return result.data;
-}
+export const submitDare = (args: SubmitDareArgs) =>
+  callApi<SubmitDareResult>("/api/submitDare", args);
 
 export function subscribeToMySubmissions(
   roomId: string,
@@ -28,11 +22,11 @@ export function subscribeToMySubmissions(
   onData: (submissions: DareSubmission[]) => void,
   onError?: (err: Error) => void
 ): () => void {
-  const q = query(
-    collection(db, "rooms", roomId, "submissions"),
-    where("playerId", "==", playerId)
+  return subscribeCollection<DareSubmission>(
+    query(collection(db, "rooms", roomId, "submissions"), where("playerId", "==", playerId)),
+    onData,
+    onError
   );
-  return subscribeCollection<DareSubmission>(q, onData, onError);
 }
 
 export function subscribeToAllSubmissions(
@@ -40,9 +34,9 @@ export function subscribeToAllSubmissions(
   onData: (submissions: DareSubmission[]) => void,
   onError?: (err: Error) => void
 ): () => void {
-  const q = query(
-    collection(db, "rooms", roomId, "submissions"),
-    orderBy("createdAt", "desc")
+  return subscribeCollection<DareSubmission>(
+    query(collection(db, "rooms", roomId, "submissions"), orderBy("createdAt", "desc")),
+    onData,
+    onError
   );
-  return subscribeCollection<DareSubmission>(q, onData, onError);
 }

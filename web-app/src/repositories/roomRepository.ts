@@ -1,51 +1,23 @@
-import { httpsCallable } from "firebase/functions";
 import { doc, collection } from "firebase/firestore";
-import { functions, db } from "../firebase";
+import { db } from "../firebase";
+import { callApi } from "../lib/api";
 import { subscribeDocument, subscribeCollection } from "../lib/firestore";
 import type { Room, Player } from "../types";
 
-interface CreateRoomArgs {
-  displayName: string;
-  avatarEmoji: string;
-  timerMinutes: number;
-}
-interface CreateRoomResult {
-  roomId: string;
-  playerId: string;
-  inviteCode: string;
-}
+interface CreateRoomResult { roomId: string; playerId: string; inviteCode: string; }
+interface JoinRoomResult { roomId: string; playerId: string; }
 
-interface JoinRoomArgs {
-  inviteCode: string;
-  displayName: string;
-  avatarEmoji: string;
-}
-interface JoinRoomResult {
-  roomId: string;
-  playerId: string;
-}
+export const createRoom = (args: { displayName: string; avatarEmoji: string; timerMinutes: number }) =>
+  callApi<CreateRoomResult>("/api/createRoom", args);
 
-export async function createRoom(args: CreateRoomArgs): Promise<CreateRoomResult> {
-  const fn = httpsCallable<CreateRoomArgs, CreateRoomResult>(functions, "createRoom");
-  const result = await fn(args);
-  return result.data;
-}
+export const joinRoom = (args: { inviteCode: string; displayName: string; avatarEmoji: string }) =>
+  callApi<JoinRoomResult>("/api/joinRoom", args);
 
-export async function joinRoom(args: JoinRoomArgs): Promise<JoinRoomResult> {
-  const fn = httpsCallable<JoinRoomArgs, JoinRoomResult>(functions, "joinRoom");
-  const result = await fn(args);
-  return result.data;
-}
+export const startGame = (roomId: string) =>
+  callApi<void>("/api/startGame", { roomId });
 
-export async function startGame(roomId: string): Promise<void> {
-  const fn = httpsCallable<{ roomId: string }, void>(functions, "startGame");
-  await fn({ roomId });
-}
-
-export async function endGame(roomId: string): Promise<void> {
-  const fn = httpsCallable<{ roomId: string }, void>(functions, "endGame");
-  await fn({ roomId });
-}
+export const endGame = (roomId: string) =>
+  callApi<void>("/api/endGame", { roomId });
 
 export function subscribeToRoom(
   roomId: string,
@@ -60,9 +32,5 @@ export function subscribeToPlayers(
   onData: (players: Player[]) => void,
   onError?: (err: Error) => void
 ): () => void {
-  return subscribeCollection<Player>(
-    collection(db, "rooms", roomId, "players"),
-    onData,
-    onError
-  );
+  return subscribeCollection<Player>(collection(db, "rooms", roomId, "players"), onData, onError);
 }
