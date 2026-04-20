@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "apple-touch-icon.png", "icons/*.png"],
       manifest: {
-        name: "Out & About",
-        short_name: "Out & About",
+        name: "For The Plot",
+        short_name: "For The Plot",
         description: "The social dare game. Complete dares, earn points, get reels.",
         theme_color: "#0D0D1A",
         background_color: "#0D0D1A",

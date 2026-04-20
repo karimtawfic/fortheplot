@@ -16,7 +16,7 @@ export function SplashPage() {
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center gap-6 px-6">
       <div className="flex flex-col items-center gap-4 animate-fadeIn">
         <div className="text-7xl">🎯</div>
-        <h1 className="text-4xl font-black text-white tracking-tight">Out & About</h1>
+        <h1 className="text-4xl font-black text-white tracking-tight">For The Plot</h1>
         <p className="text-white/50 text-center">The dare game for real life</p>
       </div>
       {isAuthenticating && (

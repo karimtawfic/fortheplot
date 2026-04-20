@@ -9,7 +9,7 @@ export function HomePage() {
     <div className="min-h-screen bg-bg flex flex-col items-center justify-between px-6 py-16">
       <div className="flex flex-col items-center gap-4 mt-8 animate-slideUp">
         <div className="text-8xl">🎯</div>
-        <h1 className="text-4xl font-black text-white tracking-tight">Out & About</h1>
+        <h1 className="text-4xl font-black text-white tracking-tight">For The Plot</h1>
         <p className="text-white/50 text-center max-w-xs">
           Complete dares. Earn points. Win the night.
         </p>
