@@ -54,16 +54,14 @@ jobs:
         run: |
           xcodebuild -resolvePackageDependencies \
             -project OutAndAbout.xcodeproj \
-            -scheme OutAndAbout \
             -clonedSourcePackagesDirPath .spm-packages
-        continue-on-error: true
 
       - name: Build (no signing)
         working-directory: ios-app
         run: |
           xcodebuild build \
             -project OutAndAbout.xcodeproj \
-            -scheme OutAndAbout \
+            -target OutAndAbout \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
             -configuration Debug \
             -clonedSourcePackagesDirPath .spm-packages \
@@ -76,7 +74,7 @@ jobs:
         run: |
           xcodebuild test \
             -project OutAndAbout.xcodeproj \
-            -scheme OutAndAboutTests \
+            -target OutAndAboutTests \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
             -configuration Debug \
             -clonedSourcePackagesDirPath .spm-packages \
