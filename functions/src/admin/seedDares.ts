@@ -11,6 +11,9 @@ interface SeedDare {
   points: number;
   category: string;
   active: boolean;
+  repeatable?: boolean;
+  verificationMode?: string;
+  difficulty?: string;
 }
 
 export const validateAndSeedDares = functions.https.onRequest(
@@ -64,6 +67,9 @@ export const validateAndSeedDares = functions.https.onRequest(
           points: dare.points,
           category: dare.category,
           active: dare.active !== false,
+          repeatable: dare.repeatable ?? false,
+          verificationMode: dare.verificationMode ?? "media_required",
+          difficulty: dare.difficulty ?? "medium",
         });
         count++;
       }
