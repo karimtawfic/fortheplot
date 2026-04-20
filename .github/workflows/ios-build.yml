@@ -45,10 +45,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: List project targets and schemes
-        working-directory: ios-app
-        run: xcodebuild -list -project OutAndAbout.xcodeproj
-
       - name: Resolve SPM dependencies
         working-directory: ios-app
         run: |
