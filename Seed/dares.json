@@ -1,7 +1,257 @@
 [
   {
-    "id": "dare_social_001",
-    "text": "Get a complete stranger to high-five you",
+    "id": "dare_ibiza_001",
+    "text": "Make a New Friend",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_002",
+    "text": "Get a Group Photo",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_003",
+    "text": "Dance on a Platform",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_004",
+    "text": "Get a Shoutout from a Performer or Host",
+    "points": 15,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_005",
+    "text": "Start a Conga Line",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_006",
+    "text": "Compliment a Stranger",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_007",
+    "text": "Buy a Drink for Someone",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_008",
+    "text": "Get on Stage",
+    "points": 20,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "admin_review",
+    "difficulty": "wild"
+  },
+  {
+    "id": "dare_ibiza_009",
+    "text": "Use a Foreign Phrase",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_010",
+    "text": "Take a Creative Group Selfie",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_011",
+    "text": "Compliment the DJ or Performer",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_012",
+    "text": "Win a Dance-off",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_013",
+    "text": "Get a High Five",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_014",
+    "text": "Exchange Contact Info",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_015",
+    "text": "Wear Something Unusual",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_016",
+    "text": "Order in a Different Accent",
+    "points": 7,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_017",
+    "text": "Get a Stranger to Join Your Group",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_018",
+    "text": "Body Shot",
+    "points": 15,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_019",
+    "text": "Start a Chant",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_020",
+    "text": "Impress with a Skill",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_021",
+    "text": "Take a Picture with a Staff Member",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_022",
+    "text": "Get a Compliment",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_023",
+    "text": "Get Someone to Buy You a Drink",
+    "points": 15,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_024",
+    "text": "Join Another Group",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_025",
+    "text": "Do a Party Trick",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_026",
+    "text": "Sing Along",
     "points": 10,
     "category": "social",
     "active": true,
@@ -10,9 +260,19 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_002",
-    "text": "Find someone wearing the same colour as you and take a photo together",
+    "id": "dare_ibiza_027",
+    "text": "Get a Piggyback Ride",
     "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_028",
+    "text": "Compliment a Couple",
+    "points": 5,
     "category": "social",
     "active": true,
     "repeatable": false,
@@ -20,18 +280,68 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_003",
-    "text": "Get a stranger to tell you their best joke",
-    "points": 15,
+    "id": "dare_ibiza_029",
+    "text": "Snap a Photo with a Famous Person",
+    "points": 20,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "admin_review",
+    "difficulty": "wild"
+  },
+  {
+    "id": "dare_ibiza_030",
+    "text": "Get a Number",
+    "points": 12,
     "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_031",
+    "text": "Teach Someone a Dance Move",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_032",
+    "text": "Take a Sunset Picture",
+    "points": 5,
+    "category": "outdoor",
     "active": true,
     "repeatable": false,
     "verificationMode": "media_required",
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_004",
-    "text": "Ask someone what their spirit animal is",
+    "id": "dare_ibiza_033",
+    "text": "Get a Stranger to Shout Your Group Name",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_034",
+    "text": "Convince Someone to Wear Your Hat",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_035",
+    "text": "Make a Toast",
     "points": 10,
     "category": "social",
     "active": true,
@@ -40,9 +350,19 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_005",
-    "text": "Get a stranger to teach you a word in a language you don't speak",
-    "points": 20,
+    "id": "dare_ibiza_036",
+    "text": "Get a Selfie with a Lifeguard",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_037",
+    "text": "Get a Group Cheer",
+    "points": 8,
     "category": "social",
     "active": true,
     "repeatable": false,
@@ -50,69 +370,9 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_006",
-    "text": "Get a stranger to show you their best celebrity impression",
-    "points": 25,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_007",
-    "text": "Convince a stranger to do a dance move with you",
-    "points": 25,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_008",
-    "text": "Find someone who shares your birthday month",
-    "points": 25,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_009",
-    "text": "Get someone to teach you a secret handshake",
-    "points": 20,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_010",
-    "text": "Find someone who has met a celebrity",
-    "points": 25,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_011",
-    "text": "Convince someone to star in a 10-second video with you",
-    "points": 20,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_012",
-    "text": "Get a stranger to rate your outfit out of 10",
-    "points": 15,
+    "id": "dare_ibiza_038",
+    "text": "Find the Tallest Person",
+    "points": 10,
     "category": "social",
     "active": true,
     "repeatable": false,
@@ -120,329 +380,19 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_social_013",
-    "text": "Find someone who speaks more than 3 languages",
-    "points": 30,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_014",
-    "text": "Get a stranger to give you life advice in one sentence",
-    "points": 15,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "easy"
-  },
-  {
-    "id": "dare_social_015",
-    "text": "Find someone with a hidden talent and get them to show you",
-    "points": 35,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_016",
-    "text": "Get 5 people to jump at the same time",
-    "points": 35,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_017",
-    "text": "Get a group of strangers to form a huddle and cheer",
-    "points": 40,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_018",
-    "text": "Convince a stranger to freestyle rap for 5 seconds",
-    "points": 35,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_social_019",
-    "text": "Get someone to teach you how to say cheers in their language",
-    "points": 15,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "easy"
-  },
-  {
-    "id": "dare_social_020",
-    "text": "Find someone who has worked as a performer or musician",
-    "points": 45,
-    "category": "social",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "hard"
-  },
-  {
-    "id": "dare_physical_001",
-    "text": "Do 10 jumping jacks in a public place",
+    "id": "dare_ibiza_039",
+    "text": "Get a Piggyback Ride from a Stranger",
     "points": 15,
     "category": "physical",
     "active": true,
     "repeatable": false,
     "verificationMode": "media_required",
-    "difficulty": "easy"
-  },
-  {
-    "id": "dare_physical_002",
-    "text": "Do a cartwheel (or best attempt) in an open space",
-    "points": 25,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_003",
-    "text": "Hold a plank for 30 seconds on any flat surface",
-    "points": 25,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_004",
-    "text": "Sprint to a visible landmark and back",
-    "points": 20,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "easy"
-  },
-  {
-    "id": "dare_physical_005",
-    "text": "Do the moonwalk past a group of people",
-    "points": 30,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_006",
-    "text": "Start a limbo contest with at least 2 other people",
-    "points": 35,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_007",
-    "text": "Do the worm in a public space",
-    "points": 45,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
     "difficulty": "hard"
   },
   {
-    "id": "dare_physical_008",
-    "text": "Lead a synchronised jumping group of 4 or more people",
-    "points": 40,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_009",
-    "text": "Convince someone to race you to a visible point",
-    "points": 25,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_010",
-    "text": "Get a stranger to do a trust fall with you",
-    "points": 30,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_011",
-    "text": "Start a human chain with 5 or more people and walk somewhere together",
-    "points": 40,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_physical_012",
-    "text": "Convince someone to breakdance with you",
-    "points": 50,
-    "category": "physical",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "hard"
-  },
-  {
-    "id": "dare_creative_001",
-    "text": "Draw a portrait of a teammate in under 2 minutes",
-    "points": 30,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_002",
-    "text": "Make a 10-second song using only objects around you",
-    "points": 45,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "hard"
-  },
-  {
-    "id": "dare_creative_003",
-    "text": "Write a haiku about your current location and recite it out loud",
-    "points": 25,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_004",
-    "text": "Perform a 15-second shadow puppet show on any wall",
-    "points": 40,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "hard"
-  },
-  {
-    "id": "dare_creative_005",
-    "text": "Recreate a famous movie scene pose with a willing stranger",
-    "points": 35,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_006",
-    "text": "Get 5 or more people to strike the same pose for a group photo",
-    "points": 35,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_007",
-    "text": "Convince a stranger to take a dramatic portrait photo of you",
-    "points": 20,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "easy"
-  },
-  {
-    "id": "dare_creative_008",
-    "text": "Get a stranger to draw your portrait in 30 seconds",
-    "points": 30,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_009",
-    "text": "Find someone to recreate a famous album cover with you",
-    "points": 50,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "hard"
-  },
-  {
-    "id": "dare_creative_010",
-    "text": "Get a group of strangers to form a heart shape for a photo",
-    "points": 40,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_011",
-    "text": "Build something with found objects and photograph it",
-    "points": 35,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_creative_012",
-    "text": "Create a human letter shape with 3 strangers",
-    "points": 40,
-    "category": "creative",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_food_001",
-    "text": "Order something you have genuinely never tried before",
-    "points": 25,
+    "id": "dare_ibiza_040",
+    "text": "Get Someone to Share a Drink",
+    "points": 10,
     "category": "food",
     "active": true,
     "repeatable": false,
@@ -450,19 +400,399 @@
     "difficulty": "medium"
   },
   {
-    "id": "dare_food_002",
-    "text": "Ask a local what their absolute favourite dish is",
+    "id": "dare_ibiza_041",
+    "text": "Start a Clap Circle",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_042",
+    "text": "Wear Sunglasses Indoors",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_043",
+    "text": "Convince Someone to Dance",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_044",
+    "text": "Compliment Someone's Shoes",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_045",
+    "text": "Get a Stranger to Wear Your Hat",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_046",
+    "text": "Get Someone to Play a Game with You",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_047",
+    "text": "Lead a Group Dance",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_048",
+    "text": "Convince a Stranger to Sing",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_049",
+    "text": "Find Someone with the Same Name",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_050",
+    "text": "Take a Picture with a Statue or Decor",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_051",
+    "text": "Get Someone to Teach You Something",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_052",
+    "text": "Get Someone to Shout a Word You Choose",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_053",
+    "text": "Join Another Group for a Song",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_054",
+    "text": "Compliment a Stranger's Smile",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_055",
+    "text": "Do a Shot with a Stranger",
     "points": 15,
     "category": "food",
     "active": true,
     "repeatable": false,
     "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_056",
+    "text": "Get Someone to Teach You a Phrase",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
     "difficulty": "easy"
   },
   {
-    "id": "dare_food_003",
-    "text": "Find the spiciest item on any nearby menu and order it",
-    "points": 45,
+    "id": "dare_ibiza_057",
+    "text": "Get a High-Five Chain",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_058",
+    "text": "Take a Photo with a Group of Girls",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_059",
+    "text": "Find a Look-Alike",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_060",
+    "text": "Create a Human Pyramid",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_061",
+    "text": "Start a Sing-Along",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_062",
+    "text": "Swap an Accessory",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_063",
+    "text": "Get Someone to Share Their Favourite Holiday Memory",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_064",
+    "text": "Buy a Souvenir for Someone",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_065",
+    "text": "Create a Human Tunnel",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_066",
+    "text": "Convince Someone to Try a New Drink",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_071",
+    "text": "Get Someone to Tell a Joke",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_072",
+    "text": "Order a Drink Using Sign Language",
+    "points": 10,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_073",
+    "text": "Compliment a Bartender",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_074",
+    "text": "High-Five a Security Guard",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_075",
+    "text": "Find Someone with a Unique Tattoo and Compliment It",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_076",
+    "text": "Get a Stranger to Dance Salsa with You",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_077",
+    "text": "Get Someone to Teach You a Word in a New Language",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_078",
+    "text": "Make a Toast in Another Language",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_079",
+    "text": "Get Someone to Try on Your Sunglasses",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_080",
+    "text": "Get a Stranger to Join Your Selfie",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_081",
+    "text": "Get Someone to Show You Their Favorite Dance Move",
+    "points": 8,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_082",
+    "text": "Start a Group Selfie Chain",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_083",
+    "text": "Convince a Stranger to Tell You Their Favorite Song",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_084",
+    "text": "Buy a Group of Strangers a Drink",
+    "points": 15,
     "category": "food",
     "active": true,
     "repeatable": false,
@@ -470,9 +800,1199 @@
     "difficulty": "hard"
   },
   {
-    "id": "dare_food_004",
-    "text": "Create the most unusual food combination possible and photograph it",
-    "points": 35,
+    "id": "dare_ibiza_085",
+    "text": "Get Someone to Recommend Their Favourite Local Spot",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_086",
+    "text": "Compliment Someone's Hat",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_087",
+    "text": "Get Someone to Show You a Magic Trick",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_088",
+    "text": "Take a Photo with a Fun Prop You Find Nearby",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_089",
+    "text": "Get a Stranger to Imitate an Animal Sound",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_090",
+    "text": "Get a Stranger to Recite a Line from a Movie",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_091",
+    "text": "Get Someone to Show You a Yoga Pose",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_092",
+    "text": "Get a Stranger to Play Air Guitar with You",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_093",
+    "text": "Get a Stranger to Teach You a Handshake",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_094",
+    "text": "Get Someone to Do the Wave with You",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_096",
+    "text": "Get a Stranger to Wear Your Sunglasses",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_097",
+    "text": "Find Someone with the Same Favorite Drink as You",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_098",
+    "text": "Get Someone to Sing Their National Anthem",
+    "points": 15,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_099",
+    "text": "Get a Stranger to Teach You a Slang Word from Their Country",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_100",
+    "text": "Find Out Someone's Favourite Local Spot",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_101",
+    "text": "Convince Someone to Give You a Nickname",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_102",
+    "text": "Get a Stranger to Show You Their Favorite Emoji",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_103",
+    "text": "Get Someone to Take a Picture of You",
+    "points": 5,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_104",
+    "text": "Start a Group Huddle",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_105",
+    "text": "Convince a Stranger to Join You for a Dance Battle",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_106",
+    "text": "Get a Stranger to Name a Celebrity They Admire",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_107",
+    "text": "Get Someone to Teach You a Card Trick",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_108",
+    "text": "Find Someone with the Same Star Sign as You",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_109",
+    "text": "Get a Stranger to Tell You Their Favorite Ice Cream Flavor",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_110",
+    "text": "Convince Someone to Share Their Travel Story",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_111",
+    "text": "Get Someone to Guess Your Age",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_112",
+    "text": "Get a Stranger to Show You a Family Photo",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_113",
+    "text": "Convince a Stranger to Sing a Duet with You",
+    "points": 15,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_114",
+    "text": "Find Someone Who Has Visited More Than 3 Countries",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_115",
+    "text": "Get a Stranger to Teach You a Dance Move from Their Culture",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_116",
+    "text": "Find Someone Who Has Visited More Than 5 Countries",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_117",
+    "text": "Get a Stranger to Give You a Compliment",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_118",
+    "text": "Get Someone to Say a Tongue Twister",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_119",
+    "text": "Get a Stranger to Teach You a Word in Their Native Language",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_120",
+    "text": "Get Someone to Share Their Favorite Memory from the Trip",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_121",
+    "text": "Ask a Stranger What Their Job Is Back Home",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_122",
+    "text": "Find Someone Who Shares Your Birthday Month",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_123",
+    "text": "Get a Stranger to Show You Their Phone Wallpaper",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_124",
+    "text": "Get a Stranger to Do the Robot Dance with You",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_125",
+    "text": "Find Someone from the Same Country as You",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_126",
+    "text": "Get a Stranger to Show You Their Best Celebrity Impression",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_127",
+    "text": "Find Someone Who Knows All the Words to the Current Song",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_128",
+    "text": "Get a Stranger to Give You Fashion Advice",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_129",
+    "text": "Find Someone Wearing the Same Color as You",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_130",
+    "text": "Get a Stranger to Describe Their Perfect Day",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_131",
+    "text": "Ask Someone What They Would Do with a Million Euros",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_132",
+    "text": "Find Someone Who Speaks More Than 3 Languages",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_133",
+    "text": "Get a Stranger to Sing a Childhood Song",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_134",
+    "text": "Ask Someone What Their Spirit Animal Is",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_135",
+    "text": "Find Someone with a Hidden Talent and Get Them to Show You",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_136",
+    "text": "Get a Stranger to Predict Your Future",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_137",
+    "text": "Get 5 People to Jump at the Same Time",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_138",
+    "text": "Start a Limbo Contest",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_139",
+    "text": "Get Someone to Do a Trust Fall with You",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_140",
+    "text": "Find Someone to Practice Ballroom Dancing with You",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_141",
+    "text": "Start a Spontaneous Applause Circle",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_142",
+    "text": "Get a Stranger to Teach You a Secret Handshake",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_143",
+    "text": "Find Someone Celebrating a Birthday Tonight",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_144",
+    "text": "Get a Stranger to Reveal Their Worst Dance Move",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_145",
+    "text": "Convince a Stranger to Be Your Wingman for 2 Minutes",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_146",
+    "text": "Get Someone to Tell You About Their Most Embarrassing Moment",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_147",
+    "text": "Find Someone Who Has a Funny Story About a Holiday",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_148",
+    "text": "Get a Stranger to Teach You a Handclap Rhythm",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_149",
+    "text": "Find Someone Who Has Met a Celebrity",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_150",
+    "text": "Get a Stranger to Tell You Their Life Motto",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_151",
+    "text": "Get Someone to Teach You a Traditional Song from Their Country",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_152",
+    "text": "Find Someone Who Can Whistle a Song and Get Them to Do It",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_153",
+    "text": "Get a Stranger to Share Their Funniest Travel Memory",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_154",
+    "text": "Find Someone Whose Name Starts with the Same Letter as Yours",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_155",
+    "text": "Get a Stranger to Show You Their Favorite TikTok Dance",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_156",
+    "text": "Convince a Stranger to Tell You Their Biggest Fear",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_157",
+    "text": "Find Someone Who Has Been Skydiving",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_158",
+    "text": "Get a Stranger to Count Backwards from 10 in Any Language",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_159",
+    "text": "Find Someone Who Has Been Proposed To or Proposed",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_160",
+    "text": "Get a Stranger to Rate Your Outfit Out of 10",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_161",
+    "text": "Find Someone Who Can Name 5 Types of Cocktails",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_162",
+    "text": "Get a Stranger to Tell You What Song Describes Their Life",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_163",
+    "text": "Convince Someone to Exchange Hats for One Song",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_164",
+    "text": "Find a Stranger Who Has the Same Shoe Size as You",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_165",
+    "text": "Get Someone to Write Their Name on Your Arm",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_166",
+    "text": "Find Someone Who Knows How to Juggle",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_167",
+    "text": "Convince a Stranger to Be in Your Squad for 5 Minutes",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_168",
+    "text": "Find Someone Who Is Here Alone and Introduce Them to Your Group",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_169",
+    "text": "Get a Group of Strangers to Form a Huddle and Cheer",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_170",
+    "text": "Find Someone Who Has the Exact Same Drink as You",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_171",
+    "text": "Get a Stranger to Teach You a Hand Game",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_172",
+    "text": "Convince Someone to Tell You a Ghost Story",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_173",
+    "text": "Find Someone Whose Phone Battery Is Below 10%",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_174",
+    "text": "Get a Stranger to Act Out Their Favorite Movie Scene",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_175",
+    "text": "Find Someone Who Has Cried at a Concert",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_176",
+    "text": "Get a Stranger to Freestyle Rap for 5 Seconds",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_177",
+    "text": "Convince Someone to Give You a Nickname and Use It All Night",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_178",
+    "text": "Find Someone Who Has Lived in 3 or More Countries",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_179",
+    "text": "Do the Worm on the Dance Floor",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_180",
+    "text": "Get a Stranger to Give You a Shoulder Ride",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_181",
+    "text": "Start a Human Chain Across the Dance Floor",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_182",
+    "text": "Get a Group to Do the YMCA Together",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_183",
+    "text": "Do the Moonwalk Past a Group of Strangers",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_184",
+    "text": "Get Someone to Race You to the Bar",
+    "points": 8,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_185",
+    "text": "Lead a Synchronized Jumping Group",
+    "points": 12,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_186",
+    "text": "Get a Stranger to Do a Cartwheel with You",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_187",
+    "text": "Start a Hands-In Group Huddle Break",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_188",
+    "text": "Get 3 Strangers to Do a Group Squat Together",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_189",
+    "text": "Convince Someone to Breakdance with You",
+    "points": 15,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_190",
+    "text": "Get a Stranger to Teach You a Cheerleader Move",
+    "points": 10,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_191",
+    "text": "Get 10 Strangers to Point at You for a Group Photo",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_192",
+    "text": "Convince a Stranger to Take a Professional Headshot of You",
+    "points": 7,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_193",
+    "text": "Get 5 People to Strike the Same Pose for a Panorama",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_194",
+    "text": "Find Someone to Do a Jumping Photo with You",
+    "points": 8,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_195",
+    "text": "Recreate a Famous Album Cover with Strangers",
+    "points": 15,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_196",
+    "text": "Get a Stranger to Draw Your Portrait in 30 Seconds",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_197",
+    "text": "Get the Whole Dance Floor to Do a Finger-Gun Pose",
+    "points": 15,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_198",
+    "text": "Create a Human Letter Shape with 3 Strangers",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_199",
+    "text": "Get a Stranger to Take a Photo of You Mid-Air",
+    "points": 8,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_200",
+    "text": "Start an Impromptu Photoshoot with Willing Strangers",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_201",
+    "text": "Get Someone to Film You Doing Something Impressive",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_202",
+    "text": "Find Someone to Recreate a Famous Movie Scene with You",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_203",
+    "text": "Get a Group of Strangers to Form a Heart Shape for a Photo",
+    "points": 12,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_204",
+    "text": "Convince Someone to Star in a 10-Second Video with You",
+    "points": 8,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_205",
+    "text": "Try a Cocktail You Have Never Heard Of",
+    "points": 8,
     "category": "food",
     "active": true,
     "repeatable": false,
@@ -480,9 +2000,99 @@
     "difficulty": "medium"
   },
   {
-    "id": "dare_food_005",
-    "text": "Eat something using only your non-dominant hand",
-    "points": 20,
+    "id": "dare_ibiza_206",
+    "text": "Ask the Bartender to Make Their Personal Favorite Drink for You",
+    "points": 10,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_207",
+    "text": "Order a Round of Mystery Shots for Your Group",
+    "points": 12,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_208",
+    "text": "Ask the Bar for a Secret Menu Item",
+    "points": 10,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_209",
+    "text": "Get Someone to Teach You a Drinking Game",
+    "points": 10,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_210",
+    "text": "Get the Bartender to Give You a Free Drink",
+    "points": 15,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "hard"
+  },
+  {
+    "id": "dare_ibiza_211",
+    "text": "Share a Shot with a Complete Stranger",
+    "points": 12,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_212",
+    "text": "Try the Most Unusual Mixer on the Bar Menu",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_213",
+    "text": "Convince Someone to Order a Drink They Have Never Tried",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_214",
+    "text": "Ask the Bartender to Surprise You with Something",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_215",
+    "text": "Find Someone to Do a Non-Alcoholic Cheers with You",
+    "points": 6,
     "category": "food",
     "active": true,
     "repeatable": false,
@@ -490,69 +2100,19 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_food_006",
-    "text": "Share a snack or drink with a complete stranger",
-    "points": 35,
+    "id": "dare_ibiza_216",
+    "text": "Get Someone to Teach You the Correct Way to Drink a Shot",
+    "points": 8,
     "category": "food",
     "active": true,
     "repeatable": false,
     "verificationMode": "media_required",
-    "difficulty": "medium"
+    "difficulty": "easy"
   },
   {
-    "id": "dare_food_007",
-    "text": "Get a server or bartender to surprise you with their personal favourite",
-    "points": 25,
-    "category": "food",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_outdoor_001",
-    "text": "Find and photograph the oldest-looking building in sight",
-    "points": 25,
-    "category": "outdoor",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_outdoor_002",
-    "text": "Find a water reflection and photograph something in it",
-    "points": 25,
-    "category": "outdoor",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_outdoor_003",
-    "text": "Find a rooftop or elevated spot and take a photo",
-    "points": 35,
-    "category": "outdoor",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_outdoor_004",
-    "text": "Spot and photograph 3 signs with funny or unusual text",
-    "points": 30,
-    "category": "outdoor",
-    "active": true,
-    "repeatable": false,
-    "verificationMode": "media_required",
-    "difficulty": "medium"
-  },
-  {
-    "id": "dare_outdoor_005",
-    "text": "Find the most photogenic spot nearby and take a photo",
-    "points": 20,
+    "id": "dare_ibiza_217",
+    "text": "Find the Most Instagrammable Spot in the Venue",
+    "points": 7,
     "category": "outdoor",
     "active": true,
     "repeatable": false,
@@ -560,10 +2120,380 @@
     "difficulty": "easy"
   },
   {
-    "id": "dare_outdoor_006",
-    "text": "Take a silhouette photo against any light source",
-    "points": 25,
+    "id": "dare_ibiza_218",
+    "text": "Take a Photo with the Skyline or a Scenic View in the Background",
+    "points": 8,
     "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_219",
+    "text": "Find an Interesting or Unusual Tree and Take a Photo",
+    "points": 5,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_220",
+    "text": "Take a Photo Reflecting in a Pool or Water Feature",
+    "points": 7,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_221",
+    "text": "Find a Rooftop or Elevated Spot and Take a Photo",
+    "points": 10,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_222",
+    "text": "Get a Stranger to Take Your Photo at a Famous Local Landmark",
+    "points": 8,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_223",
+    "text": "Take a Photo Under the Stars",
+    "points": 5,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_224",
+    "text": "Find the Best Lit Spot in the Venue and Take a Photo",
+    "points": 6,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_225",
+    "text": "Capture a Photo of the Crowd from Above",
+    "points": 8,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_226",
+    "text": "Take a Silhouette Photo Against the Stage Lights",
+    "points": 8,
+    "category": "outdoor",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_227",
+    "text": "Get a Stranger to Teach You Their Country's Greeting",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_228",
+    "text": "Find Someone with the Same Eye Color as You",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_229",
+    "text": "Get a Stranger to Tell You Their Favourite Local Venue",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_230",
+    "text": "Convince a Stranger to Be Your Tour Guide for 2 Minutes",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_231",
+    "text": "Get a Stranger to Roast You Nicely",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_232",
+    "text": "Find Someone Who Has Done a Bungee Jump",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_233",
+    "text": "Get Someone to Teach You a Traditional Hand Gesture",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_234",
+    "text": "Find Someone Who Has Worked as a DJ or Musician",
+    "points": 12,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_235",
+    "text": "Get a Stranger to Give You Life Advice in One Sentence",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_236",
+    "text": "Convince Someone to Swap Drinks with You for One Sip",
+    "points": 8,
+    "category": "food",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_237",
+    "text": "Find Someone Who Has Swum in More Than 3 Different Seas",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_238",
+    "text": "Get a Stranger to Rate This Place Out of 10 and Explain Why",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_239",
+    "text": "Find Someone Who Has Been to a Music Festival Before",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_240",
+    "text": "Get Someone to Teach You a Lullaby from Their Country",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_241",
+    "text": "Convince a Stranger to Trade Something Small as a Keepsake",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_242",
+    "text": "Find Someone Who Surfs or Wants To Learn",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_243",
+    "text": "Get a Stranger to Tell You Something Most People Don't Know About Them",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_244",
+    "text": "Convince a Stranger to Clap Along to a Song with You",
+    "points": 7,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_245",
+    "text": "Get a Stranger to Do Your Signature Move",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_246",
+    "text": "Find Someone Visiting This Place for the First Time",
+    "points": 6,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_247",
+    "text": "Get a Group to Shout the Name of Your Hometown",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_248",
+    "text": "Get a Stranger to Promise to Visit Your Country",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_249",
+    "text": "Find Someone Who Can Name a Song Just from Humming",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_250",
+    "text": "Get a Stranger to Do Your Best Dance Move Back at You",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_251",
+    "text": "Find Someone Who Has a Tattoo with a Hidden Meaning",
+    "points": 8,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_252",
+    "text": "Get a Stranger to Teach You How to Say \"Cheers\" in Their Language",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_253",
+    "text": "Get the Whole Group to Take a Simultaneous Selfie",
+    "points": 10,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_254",
+    "text": "Find Someone Who Has Performed on Stage Before",
+    "points": 10,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "medium"
+  },
+  {
+    "id": "dare_ibiza_255",
+    "text": "Get a Stranger to Teach You an Unusual Party Game",
+    "points": 10,
+    "category": "social",
     "active": true,
     "repeatable": false,
     "verificationMode": "media_required",
