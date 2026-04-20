@@ -66,3 +66,21 @@ targets:
       - target: OutAndAbout
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.outandabout.app.tests
+
+schemes:
+  OutAndAbout:
+    build:
+      targets:
+        OutAndAbout: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - OutAndAboutTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

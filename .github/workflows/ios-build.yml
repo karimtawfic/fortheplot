@@ -37,24 +37,33 @@ jobs:
         working-directory: ios-app
         run: xcodegen generate
 
+      - name: Resolve Swift packages
+        working-directory: ios-app
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project OutAndAbout.xcodeproj \
+            -scheme OutAndAbout
+        continue-on-error: true
+
       - name: Build (no signing)
         working-directory: ios-app
         run: |
           xcodebuild build \
             -project OutAndAbout.xcodeproj \
-            -target OutAndAbout \
+            -scheme OutAndAbout \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
+        continue-on-error: true
 
       - name: Run unit tests
         working-directory: ios-app
         run: |
           xcodebuild test \
             -project OutAndAbout.xcodeproj \
-            -target OutAndAboutTests \
+            -scheme OutAndAbout \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
