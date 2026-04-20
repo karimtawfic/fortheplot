@@ -19,20 +19,6 @@ const mockCollectionGet = jest.fn();
 
 jest.mock("firebase-admin", () => ({
   initializeApp: jest.fn(),
-  firestore: jest.fn().mockReturnValue({
-    collection: jest.fn().mockReturnValue({
-      doc: jest.fn().mockReturnValue({
-        id: "mock-room-id",
-        collection: jest.fn().mockReturnValue({
-          doc: jest.fn().mockReturnValue({ id: "mock-player-id" }),
-        }),
-        set: mockSet,
-        update: mockUpdate,
-      }),
-      where: mockWhere,
-    }),
-    batch: mockBatch,
-  }),
   firestore: Object.assign(
     jest.fn().mockReturnValue({
       collection: jest.fn().mockReturnValue({
@@ -41,6 +27,8 @@ jest.mock("firebase-admin", () => ({
           collection: jest.fn().mockReturnValue({
             doc: jest.fn().mockReturnValue({ id: "mock-uid" }),
           }),
+          set: mockSet,
+          update: mockUpdate,
         }),
         where: mockWhere,
       }),
@@ -49,10 +37,10 @@ jest.mock("firebase-admin", () => ({
     {
       Timestamp: {
         now: jest.fn().mockReturnValue({ toMillis: () => Date.now() }),
-        fromMillis: jest.fn((ms) => ({ toMillis: () => ms })),
+        fromMillis: jest.fn((ms: number) => ({ toMillis: () => ms })),
       },
       FieldValue: {
-        increment: jest.fn((n) => ({ _increment: n })),
+        increment: jest.fn((n: number) => ({ _increment: n })),
         delete: jest.fn(),
       },
     }

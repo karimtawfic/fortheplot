@@ -45,7 +45,7 @@ describe("joinRoom - room capacity", () => {
 });
 
 describe("joinRoom - room status checks", () => {
-  const allowedStatus = "lobby";
+  const allowedStatus: string = "lobby";
 
   it("allows joining when room is in lobby", () => {
     expect("lobby" === allowedStatus).toBe(true);
