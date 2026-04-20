@@ -30,10 +30,8 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      - name: Install XcodeGen and xcpretty
-        run: |
-          brew install xcodegen
-          gem install xcpretty --no-document
+      - name: Install XcodeGen
+        run: brew install xcodegen
 
       - name: Generate Xcode project
         working-directory: ios-app
@@ -57,7 +55,6 @@ jobs:
       - name: Build (no signing)
         working-directory: ios-app
         run: |
-          set -o pipefail
           xcodebuild build \
             -project OutAndAbout.xcodeproj \
             -scheme OutAndAbout \
@@ -65,8 +62,7 @@ jobs:
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            | xcpretty --color --simple
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Run unit tests
         working-directory: ios-app
@@ -77,6 +73,5 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            | xcpretty --color
+            CODE_SIGNING_REQUIRED=NO
         continue-on-error: true
