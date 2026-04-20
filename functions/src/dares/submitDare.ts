@@ -12,15 +12,18 @@ export const submitDare = functions.https.onCall(async (request) => {
     throw new functions.https.HttpsError("unauthenticated", "Must be authenticated.");
   }
 
-  const data = request.data as SubmitDarePayload & { mediaType: string };
+  const rawData = request.data as Record<string, unknown>;
+  const data = rawData as unknown as SubmitDarePayload;
   const uid = request.auth.uid;
 
-  if (!data.submissionId || !data.roomId || !data.dareId || !data.mediaUrl || !data.thumbnailUrl || !data.mediaType) {
+  const rawMediaType = String(rawData.mediaType ?? "");
+
+  if (!data.submissionId || !data.roomId || !data.dareId || !data.mediaUrl || !data.thumbnailUrl || !rawMediaType) {
     throw new functions.https.HttpsError("invalid-argument", "submissionId, roomId, dareId, mediaType, mediaUrl, and thumbnailUrl are required.");
   }
 
   // Normalize mediaType: "photo" (legacy iOS) → "image"
-  const mediaType: MediaType = data.mediaType === "photo" ? "image" : (data.mediaType as MediaType);
+  const mediaType: MediaType = rawMediaType === "photo" ? "image" : (rawMediaType as MediaType);
 
   if (mediaType !== "image" && mediaType !== "video") {
     throw new functions.https.HttpsError("invalid-argument", "mediaType must be image or video.");
@@ -46,7 +49,7 @@ export const submitDare = functions.https.onCall(async (request) => {
     if (existingSubSnap.exists) throw new functions.https.HttpsError("already-exists", "Submission already exists.");
 
     const room = roomSnap.data()!;
-    const dare = { ...dareSnap.data()!, dareId: dareSnap.id };
+    const dare = { ...dareSnap.data(), dareId: dareSnap.id } as import("../types").Dare;
 
     // Read existing submissions for rule checks
     const existingSnap = await db
