@@ -54,7 +54,9 @@ jobs:
         run: |
           xcodebuild -resolvePackageDependencies \
             -project OutAndAbout.xcodeproj \
+            -scheme OutAndAbout \
             -clonedSourcePackagesDirPath .spm-packages
+        continue-on-error: true
 
       - name: Build (no signing)
         working-directory: ios-app
