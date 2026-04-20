@@ -18,10 +18,12 @@ module.exports = {
     "/node_modules/**/*",
     "jest.config.js",
     ".eslintrc.js",
+    "**/__tests__/**",
   ],
   plugins: ["@typescript-eslint"],
   rules: {
     "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "quotes": ["error", "double"],
     "indent": ["error", 2],
     "no-trailing-spaces": "error",

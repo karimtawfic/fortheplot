@@ -32,6 +32,22 @@ service firebase.storage {
       return request.resource.size < 200 * 1024 * 1024;
     }
 
+    function isAllowedImageMime() {
+      return request.resource.contentType in [
+        'image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'
+      ];
+    }
+
+    function isAllowedVideoMime() {
+      return request.resource.contentType in [
+        'video/mp4', 'video/quicktime', 'video/webm'
+      ];
+    }
+
+    function isAllowedMediaMime() {
+      return isAllowedImageMime() || isAllowedVideoMime();
+    }
+
     // ─── Player Avatars ───────────────────────────────────────────────────────
 
     match /avatars/{userId}/{filename} {
@@ -42,7 +58,7 @@ service firebase.storage {
         && isUnder50MB();
     }
 
-    // ─── Dare Submission Media ────────────────────────────────────────────────
+    // ─── Dare Submission Media (legacy path — kept readable forever) ─────────
 
     match /submissions/{roomId}/{playerId}/{filename} {
       allow read: if isAuthenticated();
@@ -52,13 +68,39 @@ service firebase.storage {
         && isUnder200MB();
     }
 
-    // ─── Submission Thumbnails ────────────────────────────────────────────────
+    // ─── Submission Thumbnails (legacy path — kept readable forever) ──────────
 
     match /thumbnails/{roomId}/{playerId}/{filename} {
       allow read: if isAuthenticated();
       allow write: if isAuthenticated()
         && isOwner(playerId)
         && isImage()
+        && isUnder50MB();
+    }
+
+    // ─── New nested submission paths: rooms/{r}/players/{p}/submissions/{id}/ ──
+
+    match /rooms/{roomId}/players/{playerId}/submissions/{submissionId}/original.jpg {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(playerId)
+        && isAllowedImageMime()
+        && isUnder50MB();
+    }
+
+    match /rooms/{roomId}/players/{playerId}/submissions/{submissionId}/original.mp4 {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(playerId)
+        && isAllowedVideoMime()
+        && isUnder200MB();
+    }
+
+    match /rooms/{roomId}/players/{playerId}/submissions/{submissionId}/thumb.jpg {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated()
+        && isOwner(playerId)
+        && isAllowedImageMime()
         && isUnder50MB();
     }
 

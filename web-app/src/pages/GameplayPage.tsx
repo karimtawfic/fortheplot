@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { DareCard } from "../components/DareCard";
 import { Timer } from "../components/Timer";
 import { Scoreboard } from "../components/Scoreboard";
@@ -19,10 +19,15 @@ export function GameplayPage() {
   const { room } = useRoom(roomId ?? null);
   const players = usePlayers(roomId ?? null);
   const { dares } = useDares();
-  const { submittedDareIds } = useMySubmissions(roomId ?? null, currentPlayer?.playerId ?? null);
+  const { submittedDareIds, submissionByDareId } = useMySubmissions(
+    roomId ?? null,
+    currentPlayer?.playerId ?? null
+  );
 
   const [tab, setTab] = useState<Tab>("dares");
   const [selectedDare, setSelectedDare] = useState<Dare | null>(null);
+
+  const isHost = room?.hostPlayerId === currentPlayer?.playerId;
 
   useEffect(() => {
     if (room) updateRoom(room);
@@ -33,6 +38,18 @@ export function GameplayPage() {
 
   if (!roomId || !currentPlayer) return null;
 
+  function handleDareClick(dare: Dare) {
+    if (!submittedDareIds.has(dare.dareId)) {
+      setSelectedDare(dare);
+      return;
+    }
+    // Allow retry for rejected dares
+    const sub = submissionByDareId.get(dare.dareId);
+    if (sub?.verificationStatus === "rejected") {
+      setSelectedDare(dare);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-bg flex flex-col">
       {/* Header */}
@@ -42,7 +59,17 @@ export function GameplayPage() {
           <span className="text-white font-semibold text-sm">{currentPlayer.displayName}</span>
           <span className="text-gold font-bold text-sm">{currentPlayer.totalPoints}pts</span>
         </div>
-        <Timer endsAt={room?.endsAt} />
+        <div className="flex items-center gap-3">
+          {isHost && (
+            <Link
+              to={`/admin/${roomId}`}
+              className="text-xs text-primary font-semibold bg-primary/10 px-2 py-1 rounded-lg"
+            >
+              Review
+            </Link>
+          )}
+          <Timer endsAt={room?.endsAt} />
+        </div>
       </div>
 
       {/* Tab bar */}
@@ -68,8 +95,8 @@ export function GameplayPage() {
               <DareCard
                 key={dare.dareId}
                 dare={dare}
-                completed={submittedDareIds.has(dare.dareId)}
-                onClick={() => !submittedDareIds.has(dare.dareId) && setSelectedDare(dare)}
+                submission={submissionByDareId.get(dare.dareId)}
+                onClick={() => handleDareClick(dare)}
               />
             ))}
             {dares.length === 0 && (

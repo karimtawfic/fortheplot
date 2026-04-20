@@ -11,15 +11,12 @@ struct ProofUploadView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showPhotoPicker = false
     @State private var photoPickerSelection: PhotosPickerItem?
-    @State private var showVideoPickerItem: PhotosPickerItem?
     @State private var showCameraSheet = false
-    @State private var photoPickerFilter: PHPickerFilter = .images
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.appBackground.ignoresSafeArea()
-
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 24) {
                         dareInfo
@@ -35,16 +32,11 @@ struct ProofUploadView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") { dismiss() }
-                        .foregroundColor(.appTextSecondary)
+                    Button("Cancel") { dismiss() }.foregroundColor(.appTextSecondary)
                 }
             }
         }
-        .photosPicker(
-            isPresented: $showPhotoPicker,
-            selection: $photoPickerSelection,
-            matching: .images
-        )
+        .photosPicker(isPresented: $showPhotoPicker, selection: $photoPickerSelection, matching: .images)
         .onChange(of: photoPickerSelection) { item in
             guard let item else { return }
             viewModel.selectedPhotoItem = item
@@ -58,9 +50,7 @@ struct ProofUploadView: View {
         }
         .onChange(of: viewModel.uploadState) { state in
             if case .success = state {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    dismiss()
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { dismiss() }
             }
         }
     }
@@ -70,13 +60,11 @@ struct ProofUploadView: View {
     private var dareInfo: some View {
         VStack(spacing: 12) {
             CategoryChip(category: dare.category)
-
             Text(dare.text)
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-
             PointsBadge(points: dare.points, size: .large)
         }
         .padding(20)
@@ -89,8 +77,8 @@ struct ProofUploadView: View {
 
     @ViewBuilder
     private var mediaPreview: some View {
-        if case .success(let pts) = viewModel.uploadState {
-            successState(points: pts)
+        if case .success(let pts, let status) = viewModel.uploadState {
+            successState(points: pts, status: status)
         } else if let image = viewModel.selectedImage {
             photoPreview(image: image)
         } else if let videoURL = viewModel.selectedVideoURL {
@@ -102,87 +90,56 @@ struct ProofUploadView: View {
 
     private func photoPreview(image: UIImage) -> some View {
         ZStack(alignment: .topTrailing) {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(16)
-
-            Button {
-                viewModel.selectedImage = nil
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 28))
-                    .foregroundColor(.white)
-                    .shadow(radius: 4)
-            }
-            .padding(10)
+            Image(uiImage: image).resizable().scaledToFit().cornerRadius(16)
+            Button { viewModel.selectedImage = nil } label: {
+                Image(systemName: "xmark.circle.fill").font(.system(size: 28)).foregroundColor(.white).shadow(radius: 4)
+            }.padding(10)
         }
     }
 
     private func videoPreview(url: URL) -> some View {
         ZStack(alignment: .topTrailing) {
             if let thumb = viewModel.videoThumbnail {
-                Image(uiImage: thumb)
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(16)
-                    .overlay(
-                        Image(systemName: "play.circle.fill")
-                            .font(.system(size: 56))
-                            .foregroundColor(.white.opacity(0.9))
-                    )
+                Image(uiImage: thumb).resizable().scaledToFit().cornerRadius(16)
+                    .overlay(Image(systemName: "play.circle.fill").font(.system(size: 56)).foregroundColor(.white.opacity(0.9)))
             } else {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.appSurface)
-                    .aspectRatio(9/16, contentMode: .fit)
-                    .overlay(
-                        Label("Video selected", systemImage: "video.fill")
-                            .foregroundColor(.appTextSecondary)
-                    )
+                RoundedRectangle(cornerRadius: 16).fill(Color.appSurface).aspectRatio(9/16, contentMode: .fit)
+                    .overlay(Label("Video selected", systemImage: "video.fill").foregroundColor(.appTextSecondary))
             }
-
             Button { viewModel.selectedVideoURL = nil } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 28))
-                    .foregroundColor(.white)
-                    .shadow(radius: 4)
-            }
-            .padding(10)
+                Image(systemName: "xmark.circle.fill").font(.system(size: 28)).foregroundColor(.white).shadow(radius: 4)
+            }.padding(10)
         }
     }
 
     private var emptyMediaState: some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(Color.appSurface)
-            .aspectRatio(3/4, contentMode: .fit)
-            .overlay(
-                VStack(spacing: 12) {
-                    Image(systemName: "camera.fill")
-                        .font(.system(size: 44))
-                        .foregroundColor(.appTextSecondary)
-                    Text("Add your proof")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.appTextSecondary)
-                    Text("Photo or video required")
-                        .font(.system(size: 13))
-                        .foregroundColor(.appBorder)
-                }
-            )
+        RoundedRectangle(cornerRadius: 16).fill(Color.appSurface).aspectRatio(3/4, contentMode: .fit)
+            .overlay(VStack(spacing: 12) {
+                Image(systemName: "camera.fill").font(.system(size: 44)).foregroundColor(.appTextSecondary)
+                Text("Add your proof").font(.system(size: 16, weight: .semibold)).foregroundColor(.appTextSecondary)
+                Text("Photo or video required").font(.system(size: 13)).foregroundColor(.appBorder)
+            })
     }
 
-    private func successState(points: Int) -> some View {
+    private func successState(points: Int, status: VerificationStatus) -> some View {
         VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(.appSuccess)
-
-            Text("Dare Complete!")
-                .font(.system(size: 28, weight: .black))
-                .foregroundColor(.white)
-
-            Text("+\(points) points")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundColor(.appGold)
+            switch status {
+            case .approved:
+                Image(systemName: "checkmark.circle.fill").font(.system(size: 80)).foregroundColor(.appSuccess)
+                Text("Dare Complete!").font(.system(size: 28, weight: .black)).foregroundColor(.white)
+                Text("+\(points) points").font(.system(size: 22, weight: .bold)).foregroundColor(.appGold)
+            case .needsReview:
+                Text("🕐").font(.system(size: 72))
+                Text("Submitted!").font(.system(size: 28, weight: .black)).foregroundColor(.white)
+                Text("Awaiting host approval").font(.system(size: 16)).foregroundColor(.appTextSecondary)
+            case .pending:
+                Text("⏳").font(.system(size: 72))
+                Text("Submitted!").font(.system(size: 28, weight: .black)).foregroundColor(.white)
+                Text("Verifying…").font(.system(size: 16)).foregroundColor(.appTextSecondary)
+            default:
+                Image(systemName: "checkmark.circle.fill").font(.system(size: 80)).foregroundColor(.appSuccess)
+                Text("Submitted!").font(.system(size: 28, weight: .black)).foregroundColor(.white)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(40)
@@ -195,68 +152,43 @@ struct ProofUploadView: View {
     private var mediaSourcePicker: some View {
         VStack(spacing: 10) {
             if viewModel.isProcessing {
-                uploadProgress
+                uploadProgressView
             } else {
                 HStack(spacing: 12) {
-                    // Photo from library
                     Button {
-                        viewModel.mediaType = .photo
+                        viewModel.mediaType = .image
                         showPhotoPicker = true
                     } label: {
-                        Label("Photo", systemImage: "photo.fill")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .secondaryButtonStyle()
+                        Label("Photo", systemImage: "photo.fill").frame(maxWidth: .infinity)
+                    }.secondaryButtonStyle()
 
-                    // Camera
-                    Button {
-                        showCameraSheet = true
-                    } label: {
-                        Label("Camera", systemImage: "camera.fill")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .secondaryButtonStyle()
+                    Button { showCameraSheet = true } label: {
+                        Label("Camera", systemImage: "camera.fill").frame(maxWidth: .infinity)
+                    }.secondaryButtonStyle()
                 }
 
-                // Video from library
                 PhotosPicker(
-                    selection: Binding(
-                        get: { nil as PhotosPickerItem? },
-                        set: { item in
-                            if let item {
-                                Task { await viewModel.processSelectedVideo(item: item) }
-                            }
-                        }
-                    ),
+                    selection: Binding(get: { nil }, set: { item in
+                        if let item { Task { await viewModel.processSelectedVideo(item: item) } }
+                    }),
                     matching: .videos
                 ) {
-                    Label("Pick Video", systemImage: "video.fill")
-                        .frame(maxWidth: .infinity)
-                }
-                .secondaryButtonStyle()
+                    Label("Pick Video", systemImage: "video.fill").frame(maxWidth: .infinity)
+                }.secondaryButtonStyle()
             }
         }
     }
 
-    private var uploadProgress: some View {
+    private var uploadProgressView: some View {
         VStack(spacing: 10) {
             HStack {
-                Text(uploadStateText)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.appTextSecondary)
+                Text(uploadStateText).font(.system(size: 14, weight: .medium)).foregroundColor(.appTextSecondary)
                 Spacer()
-                Text("\(Int(viewModel.uploadProgress * 100))%")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.appPrimary)
+                Text("\(Int(viewModel.uploadProgress * 100))%").font(.system(size: 14, weight: .bold)).foregroundColor(.appPrimary)
             }
-            ProgressView(value: viewModel.uploadProgress)
-                .tint(.appPrimary)
-                .background(Color.appBorder)
-                .cornerRadius(4)
+            ProgressView(value: viewModel.uploadProgress).tint(.appPrimary).background(Color.appBorder).cornerRadius(4)
         }
-        .padding(16)
-        .background(Color.appSurface)
-        .cornerRadius(12)
+        .padding(16).background(Color.appSurface).cornerRadius(12)
     }
 
     private var uploadStateText: String {
@@ -276,15 +208,8 @@ struct ProofUploadView: View {
                 EmptyView()
             } else if case .failure(let msg) = viewModel.uploadState {
                 VStack(spacing: 12) {
-                    Text(msg)
-                        .font(.system(size: 14))
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-
-                    Button("Try Again") {
-                        viewModel.uploadState = .idle
-                    }
-                    .secondaryButtonStyle()
+                    Text(msg).font(.system(size: 14)).foregroundColor(.red).multilineTextAlignment(.center)
+                    Button("Try Again") { viewModel.uploadState = .idle }.secondaryButtonStyle()
                 }
             } else {
                 Button {
@@ -313,7 +238,6 @@ struct CameraPickerView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-
     func makeCoordinator() -> Coordinator { Coordinator(onCapture: onCapture) }
 
     final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -321,15 +245,11 @@ struct CameraPickerView: UIViewControllerRepresentable {
         init(onCapture: @escaping (UIImage) -> Void) { self.onCapture = onCapture }
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
-                onCapture(image)
-            }
+            if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage { onCapture(image) }
             picker.dismiss(animated: true)
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true)
-        }
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { picker.dismiss(animated: true) }
     }
 }
 

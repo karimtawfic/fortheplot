@@ -2,43 +2,44 @@ import SwiftUI
 
 struct DareCardView: View {
     let dare: Dare
-    let isCompleted: Bool
     var submission: DareSubmission?
     var onTap: (() -> Void)?
     var size: CardSize = .full
 
     enum CardSize { case full, grid }
 
+    private var status: VerificationStatus? { submission?.verificationStatus }
+
     var body: some View {
         Group {
-            if isCompleted {
-                completedCard
-            } else {
+            switch status {
+            case .approved:
+                approvedCard
+            case .pending:
+                pendingCard
+            case .needsReview:
+                needsReviewCard
+            case .rejected:
+                rejectedCard
+            case .none:
                 incompleteCard
             }
         }
-        .onTapGesture {
-            onTap?()
-        }
+        .onTapGesture { onTap?() }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(dare.text). \(dare.points) points. \(dare.category.displayName). \(isCompleted ? "Completed" : "Not completed")")
+        .accessibilityLabel(accessibilityLabel)
     }
 
-    // MARK: - Incomplete Card
+    // MARK: - States
 
     private var incompleteCard: some View {
         ZStack {
-            // Background gradient
             Color.categoryGradient(dare.category)
-
             ZStack(alignment: .topTrailing) {
-                // Points badge
                 PointsBadge(points: dare.points, size: size == .full ? .large : .medium)
                     .padding(14)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-
-            // Category chip
             VStack {
                 Spacer()
                 HStack {
@@ -47,8 +48,6 @@ struct DareCardView: View {
                 }
                 .padding(size == .full ? 20 : 12)
             }
-
-            // Dare text
             Text(dare.text)
                 .font(.system(size: size == .full ? 26 : 14, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
@@ -63,27 +62,10 @@ struct DareCardView: View {
         .shadow(color: .black.opacity(0.25), radius: size == .full ? 12 : 6)
     }
 
-    // MARK: - Completed Card
-
-    private var completedCard: some View {
+    private var approvedCard: some View {
         ZStack(alignment: .topTrailing) {
-            // Media thumbnail as background
-            AsyncImage(url: URL(string: submission?.thumbnailUrl ?? "")) { phase in
-                switch phase {
-                case .success(let img):
-                    img.resizable().scaledToFill()
-                default:
-                    Color.appSurface2
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipped()
-
-            // Dark scrim
-            LinearGradient.darkOverlay
-
-            // Completed overlay
-            completedOverlay
+            thumbnailBackground(dimAmount: 0.5)
+            completedOverlayContent
         }
         .background(Color.appSurface2)
         .cornerRadius(size == .full ? 24 : 16)
@@ -94,29 +76,94 @@ struct DareCardView: View {
         .shadow(color: .black.opacity(0.3), radius: size == .full ? 12 : 6)
     }
 
-    private var completedOverlay: some View {
+    private var pendingCard: some View {
+        ZStack {
+            thumbnailBackground(dimAmount: 0.7)
+            VStack(spacing: 8) {
+                Text("⏳").font(.system(size: size == .full ? 48 : 28))
+                Text("Verifying…")
+                    .font(.system(size: size == .full ? 15 : 11, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.8))
+            }
+        }
+        .background(Color.appSurface2)
+        .cornerRadius(size == .full ? 24 : 16)
+        .shadow(color: .black.opacity(0.3), radius: size == .full ? 12 : 6)
+    }
+
+    private var needsReviewCard: some View {
+        ZStack {
+            thumbnailBackground(dimAmount: 0.7)
+            VStack(spacing: 8) {
+                Text("🕐").font(.system(size: size == .full ? 48 : 28))
+                Text("Awaiting host")
+                    .font(.system(size: size == .full ? 15 : 11, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 12)
+            }
+        }
+        .background(Color.appSurface2)
+        .cornerRadius(size == .full ? 24 : 16)
+        .shadow(color: .black.opacity(0.3), radius: size == .full ? 12 : 6)
+    }
+
+    private var rejectedCard: some View {
+        ZStack {
+            thumbnailBackground(dimAmount: 0.75)
+            VStack(spacing: 8) {
+                Text("✕").font(.system(size: size == .full ? 40 : 24)).foregroundColor(.white.opacity(0.7))
+                if let reason = submission?.verificationReason {
+                    Text(reason)
+                        .font(.system(size: size == .full ? 13 : 10))
+                        .foregroundColor(.white.opacity(0.5))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .padding(.horizontal, 12)
+                }
+                Text("Tap to retry")
+                    .font(.system(size: size == .full ? 13 : 10, weight: .semibold))
+                    .foregroundColor(Color.appPrimary)
+            }
+        }
+        .background(Color.appSurface2)
+        .cornerRadius(size == .full ? 24 : 16)
+        .shadow(color: .black.opacity(0.3), radius: size == .full ? 12 : 6)
+    }
+
+    // MARK: - Helpers
+
+    @ViewBuilder
+    private func thumbnailBackground(dimAmount: Double) -> some View {
+        AsyncImage(url: URL(string: submission?.thumbnailUrl ?? "")) { phase in
+            switch phase {
+            case .success(let img): img.resizable().scaledToFill()
+            default: Color.appSurface2
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .clipped()
+        Color.black.opacity(dimAmount)
+    }
+
+    private var completedOverlayContent: some View {
         VStack {
             HStack {
                 Spacer()
-                // Checkmark badge
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: size == .full ? 32 : 20))
                     .foregroundColor(.appSuccess)
                     .padding(12)
             }
-
             Spacer()
-
-            // Bottom info
             VStack(alignment: .leading, spacing: 4) {
                 Text(dare.text)
                     .font(.system(size: size == .full ? 18 : 11, weight: .semibold))
                     .foregroundColor(.white)
                     .lineLimit(2)
                     .shadow(radius: 2)
-
                 HStack {
-                    PointsBadge(points: dare.points, size: size == .full ? .medium : .small)
+                    PointsBadge(points: submission?.pointsAwarded ?? dare.points, size: size == .full ? .medium : .small)
                     if submission?.isVideo == true {
                         Label("Video", systemImage: "video.fill")
                             .font(.system(size: 11, weight: .medium))
@@ -133,16 +180,29 @@ struct DareCardView: View {
             .background(Color.black.opacity(0.3))
         }
     }
+
+    private var accessibilityLabel: String {
+        let stateLabel: String
+        switch status {
+        case .approved: stateLabel = "Completed"
+        case .pending: stateLabel = "Verifying"
+        case .needsReview: stateLabel = "Awaiting host review"
+        case .rejected: stateLabel = "Rejected, tap to retry"
+        case .none: stateLabel = "Not attempted"
+        }
+        return "\(dare.text). \(dare.points) points. \(dare.category.displayName). \(stateLabel)"
+    }
 }
 
 #Preview("Incomplete") {
-    DareCardView(dare: .preview, isCompleted: false)
-        .frame(width: 320, height: 440)
-        .padding()
+    DareCardView(dare: .preview)
+        .frame(width: 320, height: 440).padding()
 }
-
-#Preview("Completed") {
-    DareCardView(dare: .preview, isCompleted: true, submission: .preview)
-        .frame(width: 320, height: 440)
-        .padding()
+#Preview("Approved") {
+    DareCardView(dare: .preview, submission: .preview)
+        .frame(width: 320, height: 440).padding()
+}
+#Preview("Needs Review") {
+    DareCardView(dare: .preview, submission: .previewPending)
+        .frame(width: 320, height: 440).padding()
 }

@@ -4,16 +4,25 @@ import FirebaseFunctions
 
 protocol SubmissionRepositoryProtocol {
     func submit(
+        submissionId: String,
         dare: Dare,
         roomId: String,
         mediaType: MediaType,
         mediaUrl: String,
-        thumbnailUrl: String
-    ) async throws -> DareSubmission
+        thumbnailUrl: String,
+        metadata: [String: Any]?
+    ) async throws -> SubmitDareResult
 
     func listenToAllSubmissions(roomId: String) -> AsyncStream<[DareSubmission]>
     func listenToPlayerSubmissions(roomId: String, playerId: String) -> AsyncStream<[DareSubmission]>
-    func hasSubmitted(roomId: String, playerId: String, dareId: String) async throws -> Bool
+}
+
+struct SubmitDareResult {
+    let submissionId: String
+    let pointsAwarded: Int
+    let newTotal: Int
+    let verificationStatus: VerificationStatus
+    let verificationReason: String?
 }
 
 final class SubmissionRepository: SubmissionRepositoryProtocol {
@@ -21,39 +30,45 @@ final class SubmissionRepository: SubmissionRepositoryProtocol {
     private let functions = Functions.functions()
 
     func submit(
+        submissionId: String,
         dare: Dare,
         roomId: String,
         mediaType: MediaType,
         mediaUrl: String,
-        thumbnailUrl: String
-    ) async throws -> DareSubmission {
+        thumbnailUrl: String,
+        metadata: [String: Any]? = nil
+    ) async throws -> SubmitDareResult {
         let callable = functions.httpsCallable("submitDare")
-        let result = try await callable.call([
+
+        var payload: [String: Any] = [
+            "submissionId": submissionId,
             "roomId": roomId,
             "dareId": dare.dareId,
             "mediaType": mediaType.rawValue,
             "mediaUrl": mediaUrl,
             "thumbnailUrl": thumbnailUrl,
-        ])
+        ]
+        if let meta = metadata {
+            payload["metadata"] = meta
+        }
+
+        let result = try await callable.call(payload)
 
         guard let data = result.data as? [String: Any],
-              let submissionId = data["submissionId"] as? String,
-              let pointsAwarded = data["pointsAwarded"] as? Int else {
+              let sid = data["submissionId"] as? String,
+              let pointsAwarded = data["pointsAwarded"] as? Int,
+              let newTotal = data["newTotal"] as? Int,
+              let statusRaw = data["verificationStatus"] as? String else {
             throw RepositoryError.invalidResponse
         }
 
-        return DareSubmission(
-            submissionId: submissionId,
-            roomId: roomId,
-            playerId: AuthService.shared.currentUID ?? "",
-            dareId: dare.dareId,
-            dareTextSnapshot: dare.text,
+        let status = VerificationStatus(rawValue: statusRaw) ?? .approved
+        return SubmitDareResult(
+            submissionId: sid,
             pointsAwarded: pointsAwarded,
-            mediaType: mediaType,
-            mediaUrl: mediaUrl,
-            thumbnailUrl: thumbnailUrl,
-            createdAt: Date(),
-            renderEligible: true
+            newTotal: newTotal,
+            verificationStatus: status,
+            verificationReason: data["verificationReason"] as? String
         )
     }
 
@@ -72,16 +87,5 @@ final class SubmissionRepository: SubmissionRepositoryProtocol {
             .whereField("playerId", isEqualTo: playerId)
             .order(by: "createdAt", descending: false)
         return firestore.listenToCollection(query)
-    }
-
-    func hasSubmitted(roomId: String, playerId: String, dareId: String) async throws -> Bool {
-        let snap = try await firestore.db
-            .collection("rooms").document(roomId)
-            .collection("submissions")
-            .whereField("playerId", isEqualTo: playerId)
-            .whereField("dareId", isEqualTo: dareId)
-            .limit(to: 1)
-            .getDocuments()
-        return !snap.isEmpty
     }
 }

@@ -14,6 +14,7 @@ import { GameplayPage } from "./pages/GameplayPage";
 import { GameEndPage } from "./pages/GameEndPage";
 import { ReelStatusPage } from "./pages/ReelStatusPage";
 import { ReelPreviewPage } from "./pages/ReelPreviewPage";
+import { AdminReviewPage } from "./pages/AdminReviewPage";
 
 function AuthGate({ children }: { children: React.ReactNode }) {
   const { currentUser } = useAppStore();
@@ -52,6 +53,7 @@ export function App() {
         <Route path="/end/:roomId" element={<AuthGate><GameEndPage /></AuthGate>} />
         <Route path="/reels/:roomId" element={<AuthGate><ReelStatusPage /></AuthGate>} />
         <Route path="/reels/:roomId/preview" element={<AuthGate><ReelPreviewPage /></AuthGate>} />
+        <Route path="/admin/:roomId" element={<AuthGate><AdminReviewPage /></AuthGate>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

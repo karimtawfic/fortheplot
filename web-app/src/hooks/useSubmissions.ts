@@ -13,8 +13,16 @@ export function useMySubmissions(roomId: string | null, playerId: string | null)
     return subscribeToMySubmissions(roomId, playerId, setSubmissions);
   }, [roomId, playerId]);
 
-  const submittedDareIds = new Set(submissions.map((s) => s.dareId));
-  return { submissions, submittedDareIds };
+  // Exclude rejected so clicking a rejected dare opens ProofUpload for retry
+  const submittedDareIds = new Set(
+    submissions
+      .filter((s) => (s.verificationStatus ?? "approved") !== "rejected")
+      .map((s) => s.dareId)
+  );
+
+  const submissionByDareId = new Map(submissions.map((s) => [s.dareId, s]));
+
+  return { submissions, submittedDareIds, submissionByDareId };
 }
 
 export function useAllSubmissions(roomId: string | null) {

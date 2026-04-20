@@ -1,0 +1,32 @@
+[
+  {
+    "id": "dare_ibiza_001",
+    "text": "Make a New Friend",
+    "points": 5,
+    "category": "social",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "media_required",
+    "difficulty": "easy"
+  },
+  {
+    "id": "dare_ibiza_008",
+    "text": "Get on Stage",
+    "points": 20,
+    "category": "physical",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "admin_review",
+    "difficulty": "wild"
+  },
+  {
+    "id": "dare_ibiza_029",
+    "text": "Snap a Photo with a Famous Person",
+    "points": 20,
+    "category": "creative",
+    "active": true,
+    "repeatable": false,
+    "verificationMode": "admin_review",
+    "difficulty": "wild"
+  }
+]
