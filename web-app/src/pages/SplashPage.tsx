@@ -4,13 +4,13 @@ import { useAppStore } from "../store/appStore";
 
 export function SplashPage() {
   const navigate = useNavigate();
-  const { currentUser, isAuthenticating } = useAppStore();
+  const { isAuthenticating } = useAppStore();
 
   useEffect(() => {
-    if (!isAuthenticating && currentUser) {
+    if (!isAuthenticating) {
       navigate("/home", { replace: true });
     }
-  }, [currentUser, isAuthenticating, navigate]);
+  }, [isAuthenticating, navigate]);
 
   return (
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center gap-6 px-6">

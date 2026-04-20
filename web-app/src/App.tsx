@@ -44,7 +44,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SplashPage />} />
-        <Route path="/home" element={<AuthGate><HomePage /></AuthGate>} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/instructions" element={<InstructionsPage />} />
         <Route path="/create" element={<AuthGate><CreateRoomPage /></AuthGate>} />
         <Route path="/join" element={<AuthGate><JoinRoomPage /></AuthGate>} />
