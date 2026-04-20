@@ -30,8 +30,10 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      - name: Install XcodeGen
-        run: brew install xcodegen
+      - name: Install XcodeGen and xcpretty
+        run: |
+          brew install xcodegen
+          gem install xcpretty --no-document
 
       - name: Generate Xcode project
         working-directory: ios-app
@@ -55,6 +57,7 @@ jobs:
       - name: Build (no signing)
         working-directory: ios-app
         run: |
+          set -o pipefail
           xcodebuild build \
             -project OutAndAbout.xcodeproj \
             -scheme OutAndAbout \
@@ -64,8 +67,6 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             | xcpretty --color --simple
-        env:
-          DEVELOPER_DIR: /Applications/Xcode_15.4.app/Contents/Developer
 
       - name: Run unit tests
         working-directory: ios-app
