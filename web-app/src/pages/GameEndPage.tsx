@@ -76,7 +76,7 @@ export function GameEndPage() {
       {/* Final standings */}
       <div className="flex-1 relative z-10">
         <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Final standings</p>
-        <Scoreboard players={players} currentPlayerId={currentPlayer?.playerId} />
+        <Scoreboard players={players} currentPlayerId={currentPlayer?.playerId} showPodium />
       </div>
 
       {/* Home button */}
