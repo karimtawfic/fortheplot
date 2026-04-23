@@ -4,7 +4,6 @@ import { DareCard } from "../components/DareCard";
 import { Timer } from "../components/Timer";
 import { Scoreboard } from "../components/Scoreboard";
 import { ProofUpload } from "../components/ProofUpload";
-import { CategoryChip } from "../components/CategoryChip";
 import { useRoom, usePlayers } from "../hooks/useRoom";
 import { useDares } from "../hooks/useDares";
 import { useMySubmissions } from "../hooks/useSubmissions";
@@ -278,8 +277,14 @@ export function GameplayPage() {
 
 // Inline list row component for list view mode
 import type { DareSubmission } from "../types";
-import { PointsBadge } from "../components/PointsBadge";
 import { CATEGORY_COLORS, CATEGORY_EMOJIS } from "../types";
+
+const DIFFICULTY_COLORS: Record<string, string> = {
+  easy: "#A5D6A7",
+  medium: "#FFF176",
+  hard: "#FF8A65",
+  wild: "#E94560",
+};
 
 function DareListRow({
   dare,
@@ -293,26 +298,77 @@ function DareListRow({
   const color = CATEGORY_COLORS[dare.category];
   const emoji = CATEGORY_EMOJIS[dare.category];
   const status = submission?.verificationStatus ?? null;
+  const done = status === "approved";
+  const pending = status && status !== "approved";
+  const diffColor = DIFFICULTY_COLORS[dare.difficulty] ?? "#AAAACC";
+  const catLabel = dare.category.charAt(0).toUpperCase() + dare.category.slice(1);
 
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 p-3.5 rounded-2xl border text-left transition-all active:scale-[0.98]"
-      style={{ borderColor: `${color}33`, background: `linear-gradient(135deg, ${color}11 0%, #1A1A2E 100%)` }}
+      className="w-full flex items-center gap-3 rounded-xl text-left transition-all active:scale-[0.98]"
+      style={{
+        padding: "12px 14px",
+        background: done ? "rgba(76,175,80,0.08)" : "#1A1A2E",
+        border: `1px solid ${done ? "rgba(76,175,80,0.35)" : "#2A2A4A"}`,
+        borderLeft: `3px solid ${done ? "#4CAF50" : color}`,
+      }}
     >
-      <span className="text-2xl w-9 text-center flex-shrink-0">{emoji}</span>
-      <div className="flex-1 min-w-0">
-        <p className="text-white text-sm font-semibold leading-snug line-clamp-2">{dare.text}</p>
-        <div className="flex items-center gap-2 mt-1.5">
-          <CategoryChip category={dare.category} size="sm" />
+      {/* Icon box */}
+      <div
+        className="flex items-center justify-center flex-shrink-0 text-xl rounded-xl"
+        style={{
+          width: 40, height: 40,
+          background: done ? "rgba(76,175,80,0.18)" : `${color}18`,
+          border: `1px solid ${done ? "rgba(76,175,80,0.35)" : `${color}33`}`,
+        }}
+      >
+        {done ? "✓" : emoji}
+      </div>
+
+      {/* Text block */}
+      <div className="flex-1 min-w-0 flex flex-col gap-1">
+        <p
+          className="text-white text-sm font-bold leading-snug line-clamp-2"
+          style={{ textDecoration: done ? "line-through" : "none", textDecorationColor: "rgba(255,255,255,0.25)" }}
+        >
+          {dare.text}
+        </p>
+        <div className="flex items-center gap-2">
+          <span
+            className="font-black uppercase"
+            style={{ fontSize: 9, letterSpacing: "0.07em", color }}
+          >
+            {catLabel}
+          </span>
+          <span
+            className="font-black uppercase"
+            style={{ fontSize: 9, letterSpacing: "0.07em", color: diffColor }}
+          >
+            ● {dare.difficulty}
+          </span>
+          {pending && (
+            <span className="text-xs font-bold" style={{ color: "#CE93D8" }}>
+              {status === "needs_review" ? "🕐 host" : status === "rejected" ? "✕ retry" : "⏳ verifying"}
+            </span>
+          )}
         </div>
       </div>
-      <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
-        <PointsBadge points={dare.points} size="sm" />
-        {status === "approved" && <span className="text-lg">✅</span>}
-        {status === "pending" && <span className="text-lg">⏳</span>}
-        {status === "rejected" && <span className="text-xs text-primary font-semibold">Retry</span>}
-        {status === "needs_review" && <span className="text-lg">🕐</span>}
+
+      {/* Points */}
+      <div className="flex-shrink-0 text-right">
+        <div
+          className="font-black leading-none"
+          style={{ fontSize: 20, color: done ? "#4CAF50" : "#FFD700", fontVariantNumeric: "tabular-nums" }}
+        >
+          {done ? `+${submission?.pointsAwarded ?? dare.points}` : dare.points}
+        </div>
+        <div
+          className="font-black mt-0.5"
+          style={{ fontSize: 8, color: done ? "#4CAF50" : "#AAAACC", letterSpacing: 1 }}
+        >
+          PTS
+        </div>
       </div>
     </button>
   );
