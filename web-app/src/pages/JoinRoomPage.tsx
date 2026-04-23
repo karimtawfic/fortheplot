@@ -60,28 +60,44 @@ export function JoinRoomPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg flex flex-col px-6 py-8 gap-6">
-      <div className="flex items-center gap-3">
-        <button onClick={() => navigate(-1)} className="text-white/60 text-2xl">←</button>
-        <h1 className="text-xl font-bold text-white">Join Room</h1>
+    <div className="min-h-screen bg-bg flex flex-col">
+      {/* Header */}
+      <div className="flex items-center gap-3 px-6 pt-safe pt-6 pb-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 flex items-center justify-center rounded-2xl bg-surface text-white/60 hover:text-white transition-colors text-xl"
+        >
+          ←
+        </button>
+        <h1 className="text-2xl font-black text-white">Join Room</h1>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex-1 overflow-y-auto px-6 pb-8 flex flex-col gap-6">
+        {/* Invite code */}
         <div>
-          <label className="text-white/60 text-sm mb-2 block">Invite code</label>
+          <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3 block">
+            Room code
+          </label>
           <input
-            className="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-primary text-center text-xl font-mono tracking-[0.3em] uppercase"
-            placeholder="ABC123"
+            className="w-full bg-surface border-2 border-border rounded-2xl px-4 py-4 text-white placeholder-white/20 focus:outline-none focus:border-primary transition-colors text-center text-3xl font-mono tracking-[0.5em] uppercase"
+            placeholder="• • • • • •"
             value={inviteCode}
-            onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+            onChange={(e) => setInviteCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
             maxLength={6}
+            autoCapitalize="characters"
+            autoCorrect="off"
+            spellCheck={false}
           />
+          <p className="text-white/30 text-xs text-center mt-2">6-character code from the host</p>
         </div>
 
+        {/* Name */}
         <div>
-          <label className="text-white/60 text-sm mb-2 block">Your name</label>
+          <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-2 block">
+            Your name
+          </label>
           <input
-            className="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-primary"
+            className="w-full bg-surface border border-border rounded-2xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-primary transition-colors"
             placeholder="Enter your name"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
@@ -89,15 +105,20 @@ export function JoinRoomPage() {
           />
         </div>
 
+        {/* Avatar */}
         <div>
-          <label className="text-white/60 text-sm mb-2 block">Pick your avatar</label>
+          <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3 block">
+            Pick your avatar
+          </label>
           <div className="grid grid-cols-10 gap-2">
             {EMOJI_OPTIONS.map((emoji) => (
               <button
                 key={emoji}
                 onClick={() => setAvatarEmoji(emoji)}
-                className={`text-2xl p-1 rounded-lg transition-all ${
-                  avatarEmoji === emoji ? "bg-primary/30 ring-2 ring-primary" : "hover:bg-white/10"
+                className={`text-2xl py-1.5 rounded-xl transition-all ${
+                  avatarEmoji === emoji
+                    ? "bg-primary/25 ring-2 ring-primary scale-110"
+                    : "hover:bg-white/8 bg-surface/50"
                 }`}
               >
                 {emoji}
@@ -106,9 +127,9 @@ export function JoinRoomPage() {
           </div>
         </div>
 
-        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+        {error && <p className="text-accent text-sm text-center">{error}</p>}
 
-        <Button size="lg" loading={loading} onClick={handleJoin} className="mt-2">
+        <Button size="lg" loading={loading} onClick={handleJoin} className="w-full mt-2">
           Join Room
         </Button>
       </div>
