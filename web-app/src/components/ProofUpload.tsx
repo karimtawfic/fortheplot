@@ -126,34 +126,73 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
       />
 
       {!selectedFile ? (
-        <div className="flex gap-3">
-          <Button
-            variant="secondary"
-            className="flex-1"
-            onClick={() => {
-              if (fileRef.current) {
-                fileRef.current.accept = "image/*";
-                fileRef.current.capture = "environment";
-                fileRef.current.click();
-              }
-            }}
-          >
-            📷 Photo
-          </Button>
-          <Button
-            variant="secondary"
-            className="flex-1"
-            onClick={() => {
-              if (fileRef.current) {
-                fileRef.current.accept = "video/*";
-                fileRef.current.capture = "environment";
-                fileRef.current.click();
-              }
-            }}
-          >
-            🎥 Video
-          </Button>
-        </div>
+        <>
+          {/* Pro tip */}
+          <div style={{
+            padding: "11px 12px", borderRadius: 14,
+            background: "linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,107,53,0.06))",
+            border: "1px solid rgba(255,215,0,0.27)",
+            display: "flex", gap: 10, alignItems: "flex-start",
+          }}>
+            <div style={{
+              width: 26, height: 26, borderRadius: 8, flexShrink: 0,
+              background: "rgba(255,215,0,0.13)", border: "1px solid rgba(255,215,0,0.4)",
+              display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14,
+            }}>💡</div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: 9, fontWeight: 900, color: "#FFD700", letterSpacing: 0.8, textTransform: "uppercase", marginBottom: 2 }}>Pro tip</div>
+              <div style={{ fontSize: 12, color: "#fff", lineHeight: 1.35, fontWeight: 500 }}>
+                {dare.text.length < 40 ? "Commit fully — the first 5 seconds are the hardest, after that you're unstoppable." : "Show yourself clearly in frame and capture the exact moment for maximum points."}
+              </div>
+            </div>
+          </div>
+
+          {/* How to win points */}
+          <div style={{
+            padding: "10px 12px", borderRadius: 12,
+            background: "rgba(255,255,255,0.03)", border: "1px solid #2A2A4A",
+          }}>
+            <div style={{ fontSize: 9, fontWeight: 900, color: "#AAAACC", letterSpacing: 0.8, textTransform: "uppercase", marginBottom: 6 }}>How to win points</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {[
+                ["1.", "Show yourself clearly in frame"],
+                ["2.", "Capture the exact moment"],
+                ["3.", "No staging — keep it real"],
+              ].map(([n, t]) => (
+                <div key={n} style={{ display: "flex", gap: 8, alignItems: "flex-start", lineHeight: 1.35 }}>
+                  <span style={{ fontSize: 10, fontWeight: 900, color: "#FF6B35", minWidth: 12, flexShrink: 0 }}>{n}</span>
+                  <span style={{ fontSize: 11, color: "#AAAACC" }}>{t}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dropzone */}
+          <div style={{
+            borderRadius: 16, background: "#1A1A2E",
+            border: "1.5px dashed #2A2A4A",
+            display: "flex", flexDirection: "row", alignItems: "center",
+            justifyContent: "center", gap: 12, padding: "16px",
+          }}>
+            <div style={{ fontSize: 28, lineHeight: 1 }}>📸</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#AAAACC", lineHeight: 1.3 }}>Add your proof</div>
+              <div style={{ fontSize: 10, color: "#2A2A4A", lineHeight: 1.3 }}>Photo or video required</div>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <Button variant="secondary" className="flex-1" onClick={() => {
+              if (fileRef.current) { fileRef.current.accept = "image/*"; fileRef.current.capture = "environment"; fileRef.current.click(); }
+            }}>📷 Camera</Button>
+            <Button variant="secondary" className="flex-1" onClick={() => {
+              if (fileRef.current) { fileRef.current.accept = "image/*"; fileRef.current.removeAttribute("capture"); fileRef.current.click(); }
+            }}>🖼 Photo</Button>
+            <Button variant="secondary" className="flex-1" onClick={() => {
+              if (fileRef.current) { fileRef.current.accept = "video/*"; fileRef.current.capture = "environment"; fileRef.current.click(); }
+            }}>🎥 Video</Button>
+          </div>
+        </>
       ) : (
         <div className="relative rounded-xl overflow-hidden bg-black aspect-[4/3]">
           {selectedFile.type.startsWith("video/") ? (

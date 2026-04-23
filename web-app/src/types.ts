@@ -158,9 +158,8 @@ export const DIFFICULTY_LABELS: Record<DareDifficulty, string> = {
   wild: "Wild!",
 };
 
-export const TIMER_OPTIONS = [5, 10, 15, 30, 45, 60, 90, 120];
+export const TIMER_OPTIONS = [30, 60, 90, 120, 180, 240];
 
 export const EMOJI_OPTIONS = [
-  "😊","🔥","⚡","🎯","🌟","💥","🦁","🐉","🎮","🏆",
-  "🦊","🐺","🎪","🌈","💎","🚀","🎸","🏄","🧨","🎭",
+  "🦊","🐙","🌸","🦁","🐸","🍄","🐨","🦋","🍕","🌈","🪐","🔥","👽","🎸","🧚",
 ];

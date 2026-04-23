@@ -8,10 +8,10 @@ import type { Room, Player } from "../types";
 import { Timestamp } from "firebase/firestore";
 
 const GAME_MODES = [
-  { id: "easy", label: "Easy", icon: "😊", desc: "Full catalog · Unlimited reshuffles" },
-  { id: "medium", label: "Medium", icon: "🎯", desc: "5 options · 5 reshuffles" },
-  { id: "hard", label: "Hard", icon: "🔥", desc: "3 options · 3 reshuffles" },
-  { id: "extreme", label: "Extreme", icon: "⚡", desc: "1 dare · 1 reshuffle" },
+  { id: "easy",    label: "Easy",    emoji: "🌱", tagline: "Any challenge", sub: "Full catalog, browse freely",  color: "#81C784" },
+  { id: "medium",  label: "Medium",  emoji: "🎯", tagline: "5 options",     sub: "Rolling hand of 5 dares",     color: "#4FC3F7" },
+  { id: "hard",    label: "Hard",    emoji: "🔥", tagline: "3 options",     sub: "Only 3 on deck — commit",     color: "#FF8A65" },
+  { id: "extreme", label: "Extreme", emoji: "💀", tagline: "1 only",        sub: "No choice — do it or pass",   color: "#E94560" },
 ] as const;
 
 export function CreateRoomPage() {
@@ -95,7 +95,7 @@ export function CreateRoomPage() {
           <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3 block">
             Pick your avatar
           </label>
-          <div className="grid grid-cols-10 gap-2">
+          <div className="grid grid-cols-8 gap-2">
             {EMOJI_OPTIONS.map((emoji) => (
               <button
                 key={emoji}
@@ -117,19 +117,19 @@ export function CreateRoomPage() {
           <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3 block">
             Game duration
           </label>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-6 gap-1.5">
             {TIMER_OPTIONS.map((mins) => (
               <button
                 key={mins}
                 onClick={() => setTimerMinutes(mins)}
-                className={`py-3 rounded-2xl text-sm font-bold transition-all ${
+                className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
                   timerMinutes === mins
-                    ? "text-white shadow-glow"
+                    ? "text-white"
                     : "bg-surface text-white/50 hover:text-white/70"
                 }`}
-                style={timerMinutes === mins ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" } : undefined}
+                style={timerMinutes === mins ? { background: "#FF6B35" } : undefined}
               >
-                {mins}m
+                {mins < 60 ? `${mins}m` : mins === 60 ? "1h" : mins === 90 ? "1.5h" : `${mins / 60}h`}
               </button>
             ))}
           </div>
@@ -140,35 +140,45 @@ export function CreateRoomPage() {
           <label className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3 block">
             Difficulty
           </label>
-          <div className="flex flex-col gap-2">
-            {GAME_MODES.map((mode) => (
-              <button
-                key={mode.id}
-                onClick={() => setGameMode(mode.id)}
-                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all text-left ${
-                  gameMode === mode.id
-                    ? "border-primary bg-primary/10"
-                    : "border-border bg-surface hover:border-white/20"
-                }`}
-              >
-                <span className="text-2xl">{mode.icon}</span>
-                <div className="flex-1">
-                  <p className={`font-bold text-sm ${gameMode === mode.id ? "text-primary" : "text-white"}`}>
-                    {mode.label}
-                  </p>
-                  <p className="text-white/40 text-xs mt-0.5">{mode.desc}</p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                    gameMode === mode.id ? "border-primary" : "border-white/20"
-                  }`}
+          <div className="flex flex-col gap-1.5">
+            {GAME_MODES.map((mode) => {
+              const on = gameMode === mode.id;
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => setGameMode(mode.id)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    padding: "9px 11px", cursor: "pointer", textAlign: "left",
+                    background: on ? `${mode.color}18` : "#1A1A2E",
+                    border: `1.5px solid ${on ? mode.color : "transparent"}`,
+                    borderRadius: 12, color: "#fff", fontFamily: "inherit", width: "100%",
+                  }}
                 >
-                  {gameMode === mode.id && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-                  )}
-                </div>
-              </button>
-            ))}
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 9, flexShrink: 0,
+                    background: on ? `${mode.color}33` : "rgba(255,255,255,0.04)",
+                    border: `1px solid ${on ? `${mode.color}88` : "#2A2A4A"}`,
+                    display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16,
+                  }}>{mode.emoji}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, lineHeight: 1.3, flexWrap: "wrap" }}>
+                      <span style={{ fontSize: 13, fontWeight: 800, color: on ? mode.color : "#fff" }}>{mode.label}</span>
+                      <span style={{ fontSize: 10, fontWeight: 700, color: "#AAAACC", whiteSpace: "nowrap" }}>· {mode.tagline}</span>
+                    </div>
+                    <div style={{ fontSize: 10, color: "#AAAACC", marginTop: 1, lineHeight: 1.3 }}>{mode.sub}</div>
+                  </div>
+                  <div style={{
+                    width: 16, height: 16, borderRadius: 999, flexShrink: 0,
+                    background: on ? mode.color : "transparent",
+                    border: `2px solid ${on ? mode.color : "#2A2A4A"}`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    {on && <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
