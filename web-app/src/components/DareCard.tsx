@@ -1,7 +1,5 @@
 import React from "react";
 import { CATEGORY_COLORS, CATEGORY_EMOJIS, type Dare, type DareSubmission } from "../types";
-import { PointsBadge } from "./PointsBadge";
-import { CategoryChip } from "./CategoryChip";
 
 interface DareCardProps {
   dare: Dare;
@@ -9,82 +7,93 @@ interface DareCardProps {
   onClick?: () => void;
 }
 
+const DIFFICULTY_COLORS: Record<string, string> = {
+  easy: "#A5D6A7",
+  medium: "#FFF176",
+  hard: "#FF8A65",
+  wild: "#E94560",
+};
+
 export function DareCard({ dare, submission, onClick }: DareCardProps) {
   const color = CATEGORY_COLORS[dare.category];
   const emoji = CATEGORY_EMOJIS[dare.category];
   const status = submission?.verificationStatus ?? null;
-
-  const hasThumbnail = !!submission?.thumbnailUrl;
+  const done = status === "approved";
+  const pending = status && status !== "approved";
+  const diffColor = DIFFICULTY_COLORS[dare.difficulty] ?? "#AAAACC";
 
   return (
     <button
       onClick={onClick}
-      className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden text-left transition-transform active:scale-95 focus:outline-none"
+      className="relative w-full aspect-square rounded-2xl overflow-hidden text-left transition-transform active:scale-95 focus:outline-none"
       style={{
-        background: status
-          ? "transparent"
-          : `linear-gradient(160deg, ${color}33 0%, #1A1A2E 80%)`,
-        border: `1px solid ${color}44`,
+        background: done
+          ? "linear-gradient(160deg, rgba(76,175,80,0.3) 0%, #1A1A2E 75%)"
+          : `linear-gradient(160deg, ${color}40 0%, #1A1A2E 70%)`,
+        border: `1px solid ${done ? "rgba(76,175,80,0.4)" : `${color}33`}`,
       }}
     >
-      {/* Thumbnail background for any submitted state */}
-      {hasThumbnail && status && (
-        <>
-          <img
-            src={submission!.thumbnailUrl}
-            alt="proof"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className={`absolute inset-0 ${status === "approved" ? "bg-black/50" : "bg-black/70"}`} />
-        </>
-      )}
+      {/* Faint oversized emoji watermark */}
+      <span
+        className="absolute select-none pointer-events-none"
+        style={{ right: -12, bottom: -12, fontSize: 90, lineHeight: 1, opacity: 0.08 }}
+        aria-hidden
+      >
+        {emoji}
+      </span>
 
-      {/* Approved */}
-      {status === "approved" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <span className="text-4xl">✅</span>
-          <PointsBadge points={submission!.pointsAwarded} size="sm" />
-        </div>
-      )}
-
-      {/* Pending (should resolve quickly for rule_engine verdicts) */}
-      {status === "pending" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/70">
-          <span className="text-4xl">⏳</span>
-          <p className="text-white/80 text-xs font-medium">Verifying…</p>
-        </div>
-      )}
-
-      {/* Needs review (admin must approve) */}
-      {status === "needs_review" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/70">
-          <span className="text-4xl">🕐</span>
-          <p className="text-white/80 text-xs font-medium text-center px-2">Awaiting host</p>
-        </div>
-      )}
-
-      {/* Rejected — tap to retry */}
-      {status === "rejected" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/70">
-          <span className="text-4xl">✕</span>
-          <p className="text-white/50 text-xs text-center px-3 line-clamp-2">
-            {submission!.verificationReason ?? "Rejected"}
-          </p>
-          <p className="text-primary text-xs font-semibold">Tap to retry</p>
-        </div>
-      )}
-
-      {/* Not yet attempted */}
-      {!status && (
-        <div className="absolute inset-0 flex flex-col p-4 gap-3">
-          <div className="text-4xl">{emoji}</div>
-          <p className="text-white font-semibold text-sm leading-snug flex-1">{dare.text}</p>
-          <div className="flex items-center justify-between">
-            <CategoryChip category={dare.category} size="sm" />
-            <PointsBadge points={dare.points} size="sm" />
+      <div className="relative z-10 flex flex-col h-full p-3 gap-1.5">
+        {/* Top row: icon + points */}
+        <div className="flex items-start justify-between">
+          <div
+            className="text-lg p-1.5 rounded-lg"
+            style={{ background: done ? "rgba(76,175,80,0.2)" : `${color}22` }}
+          >
+            {done ? "✓" : emoji}
+          </div>
+          <div
+            className="text-xs font-black px-1.5 py-0.5 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #FFD700, #FFA500)",
+              color: "#1A1A2E",
+            }}
+          >
+            +{done ? (submission?.pointsAwarded ?? dare.points) : dare.points}
           </div>
         </div>
-      )}
+
+        {/* Dare text */}
+        <p
+          className="text-white font-bold text-xs leading-snug flex-1 overflow-hidden"
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: "vertical",
+            textDecoration: done ? "line-through" : "none",
+            textDecorationColor: "rgba(255,255,255,0.3)",
+          }}
+        >
+          {dare.text}
+        </p>
+
+        {/* Bottom row: difficulty + status indicator */}
+        <div className="flex items-center justify-between">
+          <span
+            className="font-black uppercase"
+            style={{ color: diffColor, fontSize: 8, letterSpacing: "0.07em" }}
+          >
+            ● {dare.difficulty}
+          </span>
+          {pending && (
+            <span className="text-sm leading-none">
+              {status === "needs_review" ? "🕐" : status === "rejected" ? "✕" : "⏳"}
+            </span>
+          )}
+          {status === "rejected" && (
+            <span className="text-primary text-xs font-semibold">Retry</span>
+          )}
+        </div>
+      </div>
     </button>
   );
 }
