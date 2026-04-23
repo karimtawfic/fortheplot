@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { DareCard } from "../components/DareCard";
-import { Timer } from "../components/Timer";
 import { Scoreboard } from "../components/Scoreboard";
 import { ProofUpload } from "../components/ProofUpload";
 import { useRoom, usePlayers } from "../hooks/useRoom";
 import { useDares } from "../hooks/useDares";
 import { useMySubmissions } from "../hooks/useSubmissions";
+import { useTimer } from "../hooks/useTimer";
 import { useAppStore } from "../store/appStore";
+import { CATEGORY_COLORS, CATEGORY_EMOJIS } from "../types";
 import type { Dare, DareCategory } from "../types";
 
 type Tab = "dares" | "scoreboard";
 type ViewMode = "grid" | "list";
 
-const CATEGORY_FILTERS: Array<{ label: string; value: DareCategory | "all" }> = [
-  { label: "All", value: "all" },
-  { label: "Social", value: "social" },
-  { label: "Physical", value: "physical" },
-  { label: "Creative", value: "creative" },
-  { label: "Food", value: "food" },
-  { label: "Outdoor", value: "outdoor" },
-];
+const ALL_CATS: DareCategory[] = ["social", "physical", "creative", "food", "outdoor"];
 
 type PointsFilter = "all" | "low" | "mid" | "high";
 const POINTS_FILTERS: Array<{ label: string; value: PointsFilter; test: (p: number) => boolean }> = [
@@ -41,12 +35,15 @@ export function GameplayPage() {
     roomId ?? null,
     currentPlayer?.playerId ?? null
   );
+  const { formatted: timerFormatted, secondsLeft } = useTimer(room?.endsAt);
+  const isWarn = secondsLeft > 0 && secondsLeft < 5 * 60;
 
   const [tab, setTab] = useState<Tab>("dares");
   const [selectedDare, setSelectedDare] = useState<Dare | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
-  const [categoryFilter, setCategoryFilter] = useState<DareCategory | "all">("all");
+  const [activeCats, setActiveCats] = useState<Set<DareCategory>>(new Set(ALL_CATS));
   const [pointsFilter, setPointsFilter] = useState<PointsFilter>("all");
+  const [hideDone, setHideDone] = useState(false);
 
   const isHost = room?.hostPlayerId === currentPlayer?.playerId;
 
@@ -70,46 +67,87 @@ export function GameplayPage() {
     }
   }
 
+  function toggleCat(cat: DareCategory) {
+    setActiveCats(prev => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
+      return next;
+    });
+  }
+
+  const allCatsActive = activeCats.size === ALL_CATS.length;
+
+  const catCounts = useMemo(() => {
+    const counts: Partial<Record<DareCategory, number>> = {};
+    dares.forEach(d => { counts[d.category] = (counts[d.category] ?? 0) + 1; });
+    return counts;
+  }, [dares]);
+
   const pointsBucket = POINTS_FILTERS.find((b) => b.value === pointsFilter)!;
   const filteredDares = dares.filter(
     (d) =>
-      (categoryFilter === "all" || d.category === categoryFilter) &&
-      pointsBucket.test(d.points)
+      activeCats.has(d.category) &&
+      pointsBucket.test(d.points) &&
+      (!hideDone || submissionByDareId.get(d.dareId)?.verificationStatus !== "approved")
   );
 
-  const completedCount = submittedDareIds.size;
+  const completedCount = [...submittedDareIds].filter(
+    id => submissionByDareId.get(id)?.verificationStatus === "approved"
+  ).length;
   const progressPct = dares.length > 0 ? Math.min((completedCount / dares.length) * 100, 100) : 0;
 
   return (
     <div className="min-h-screen bg-bg flex flex-col">
       {/* Sticky header */}
       <div className="sticky top-0 z-20 bg-bg/95 backdrop-blur border-b border-white/5">
-        <div className="flex items-center justify-between px-4 pt-safe pt-3 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">{currentPlayer.avatarEmoji}</span>
-            <div>
-              <p className="text-white font-bold text-sm leading-none">{currentPlayer.displayName}</p>
-              <p className="text-gold font-semibold text-xs mt-0.5">{currentPlayer.totalPoints} pts</p>
-            </div>
+        {/* Top bar: timer | points | action button */}
+        <div className="flex items-center gap-3 px-4 pt-safe pt-3 pb-2">
+          {/* Timer pill */}
+          <div
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl ${isWarn ? "text-accent" : "text-white"}`}
+            style={{ background: isWarn ? "rgba(233,69,96,0.14)" : "rgba(255,255,255,0.07)" }}
+          >
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+            <span className="font-mono font-black text-base tabular-nums">{timerFormatted}</span>
           </div>
-          <div className="flex items-center gap-2">
-            {isHost && (
-              <Link
-                to={`/admin/${roomId}`}
-                className="text-xs text-primary font-semibold bg-primary/15 px-2.5 py-1.5 rounded-xl"
-              >
-                Review
-              </Link>
-            )}
-            <div className="bg-surface border border-border rounded-xl px-3 py-1.5">
-              <Timer endsAt={room?.endsAt} />
-            </div>
+
+          <div className="flex-1" />
+
+          {/* Points */}
+          <div className="text-right">
+            <p className="text-gold font-black text-xl leading-none tabular-nums">
+              {currentPlayer.totalPoints}
+            </p>
+            <p className="text-[8px] font-black text-white/40 tracking-[0.1em] mt-0.5">PTS</p>
           </div>
+
+          {/* Host review button or placeholder */}
+          {isHost ? (
+            <Link
+              to={`/admin/${roomId}`}
+              className="w-9 h-9 bg-surface border border-border rounded-xl flex items-center justify-center text-[10px] font-black text-primary"
+            >
+              Rev
+            </Link>
+          ) : (
+            <div className="w-9 h-9 bg-surface border border-border rounded-xl flex items-center justify-center">
+              <svg width="15" height="12" viewBox="0 0 18 14" fill="none">
+                <path d="M1 2h16M1 7h16M1 12h11" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
+          )}
         </div>
 
-        {/* Progress bar */}
-        <div className="px-4 pb-1">
-          <div className="h-1 bg-surface rounded-full overflow-hidden">
+        {/* Progress strip */}
+        <div className="flex items-center gap-2 px-4 pb-2">
+          <span className="text-[11px] font-black text-white/50 flex-shrink-0 tabular-nums">
+            {completedCount} / {dares.length} done
+          </span>
+          <div className="flex-1 h-1 bg-surface rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
@@ -118,7 +156,9 @@ export function GameplayPage() {
               }}
             />
           </div>
-          <p className="text-white/30 text-xs mt-1">{completedCount} of {dares.length} completed</p>
+          <span className="text-[11px] font-black text-white flex-shrink-0 tabular-nums">
+            {Math.round(progressPct)}%
+          </span>
         </div>
 
         {/* Tab bar */}
@@ -128,9 +168,7 @@ export function GameplayPage() {
               key={t}
               onClick={() => setTab(t)}
               className={`flex-1 py-2 text-sm font-bold rounded-xl transition-all ${
-                tab === t
-                  ? "text-white"
-                  : "text-white/40 hover:text-white/60"
+                tab === t ? "text-white" : "text-white/40 hover:text-white/60"
               }`}
               style={tab === t ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" } : undefined}
             >
@@ -143,71 +181,137 @@ export function GameplayPage() {
       {/* Dares tab */}
       {tab === "dares" && (
         <>
-          {/* Filters + view toggle */}
-          <div className="px-4 pt-3 pb-2 border-b border-white/5" style={{ background: "rgba(0,0,0,0.15)" }}>
-            {/* Category row */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-white/30 font-black uppercase flex-shrink-0" style={{ fontSize: 9, letterSpacing: "0.08em" }}>CAT</span>
-              <div className="flex gap-1.5 overflow-x-auto no-scrollbar flex-1">
-                {CATEGORY_FILTERS.map((f) => (
-                  <button
-                    key={f.value}
-                    onClick={() => setCategoryFilter(f.value)}
-                    className={`flex-shrink-0 px-2.5 py-1 rounded-full font-bold transition-all border ${
-                      categoryFilter === f.value
-                        ? "text-white border-transparent"
-                        : "text-white/50 border-border bg-transparent"
-                    }`}
-                    style={{
-                      fontSize: 10,
-                      ...(categoryFilter === f.value
-                        ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" }
-                        : undefined),
-                    }}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
+          {/* Filters */}
+          <div
+            className="px-3 pt-3 pb-2 border-b border-white/5"
+            style={{ background: "rgba(0,0,0,0.15)" }}
+          >
+            {/* Category label + divider */}
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <span
+                className="text-[9px] font-black text-white/30 uppercase flex-shrink-0"
+                style={{ letterSpacing: "0.08em" }}
+              >
+                CATEGORY
+              </span>
+              <div className="flex-1 h-px bg-border" />
             </div>
 
-            {/* Points row + view toggle */}
-            <div className="flex items-center gap-2">
-              <span className="text-white/30 font-black uppercase flex-shrink-0" style={{ fontSize: 9, letterSpacing: "0.08em" }}>PTS</span>
-              <div className="flex gap-1.5 flex-1">
-                {POINTS_FILTERS.map((b) => (
+            {/* Category pills (multi-select) */}
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              <button
+                onClick={() => setActiveCats(new Set(ALL_CATS))}
+                className={`px-2.5 py-1 rounded-full text-[10px] font-black transition-all border ${
+                  allCatsActive
+                    ? "text-white border-transparent"
+                    : "text-white/50 border-border bg-transparent"
+                }`}
+                style={allCatsActive ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" } : undefined}
+              >
+                All
+              </button>
+              {ALL_CATS.map(cat => {
+                const on = activeCats.has(cat);
+                const color = CATEGORY_COLORS[cat];
+                const emoji = CATEGORY_EMOJIS[cat];
+                const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+                const count = catCounts[cat] ?? 0;
+                return (
                   <button
-                    key={b.value}
-                    onClick={() => setPointsFilter(b.value)}
-                    className={`flex-1 py-1 rounded-lg font-black transition-all border ${
-                      pointsFilter === b.value
-                        ? "text-white border-transparent"
-                        : "text-white/40 border-border bg-transparent"
-                    }`}
+                    key={cat}
+                    onClick={() => toggleCat(cat)}
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-black transition-all border"
                     style={{
-                      fontSize: 10,
-                      letterSpacing: "0.03em",
-                      ...(pointsFilter === b.value ? { background: "#FF6B35" } : undefined),
+                      background: on ? `${color}22` : "transparent",
+                      color: on ? color : "#AAAACC",
+                      borderColor: on ? `${color}66` : "#2A2A4A",
+                      opacity: on ? 1 : 0.7,
                     }}
                   >
-                    {b.label}
+                    <span>{emoji}</span>
+                    {label}
+                    <span style={{ fontSize: 9, opacity: 0.7, fontWeight: 700 }}>{count}</span>
                   </button>
-                ))}
-              </div>
-              <div className="flex gap-0.5 flex-shrink-0 bg-surface rounded-xl border border-border p-0.5">
-                <button
-                  onClick={() => setViewMode("list")}
-                  className={`p-1.5 rounded-lg transition-colors ${viewMode === "list" ? "bg-primary/20 text-primary" : "text-white/30"}`}
+                );
+              })}
+            </div>
+
+            {/* Points label + hide done */}
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <span
+                className="text-[9px] font-black text-white/30 uppercase flex-shrink-0"
+                style={{ letterSpacing: "0.08em" }}
+              >
+                POINTS
+              </span>
+              <div className="flex-1 h-px bg-border" />
+              <label className="flex items-center gap-1.5 cursor-pointer flex-shrink-0">
+                <input
+                  type="checkbox"
+                  checked={hideDone}
+                  onChange={e => setHideDone(e.target.checked)}
+                  className="cursor-pointer"
+                  style={{ accentColor: "#FF6B35" }}
+                />
+                <span
+                  className="text-[10px] font-black"
+                  style={{ color: hideDone ? "#FF6B35" : "#AAAACC" }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1 3h10M1 6h10M1 9h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
-                </button>
+                  Hide done
+                </span>
+              </label>
+            </div>
+
+            {/* Points filter buttons */}
+            <div className="flex gap-1.5">
+              {POINTS_FILTERS.map((b) => (
                 <button
-                  onClick={() => setViewMode("grid")}
-                  className={`p-1.5 rounded-lg transition-colors ${viewMode === "grid" ? "bg-primary/20 text-primary" : "text-white/30"}`}
+                  key={b.value}
+                  onClick={() => setPointsFilter(b.value)}
+                  className="flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all border"
+                  style={{
+                    background: pointsFilter === b.value ? "#FF6B35" : "transparent",
+                    color: pointsFilter === b.value ? "#fff" : "#AAAACC",
+                    borderColor: pointsFilter === b.value ? "#FF6B35" : "#2A2A4A",
+                  }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="7" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="1" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="7" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/></svg>
+                  {b.label}
                 </button>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Results count + view toggle */}
+          <div className="flex items-center justify-between px-4 py-2">
+            <span className="text-[11px] font-black text-white/50">
+              {filteredDares.length} challenge{filteredDares.length === 1 ? "" : "s"}
+            </span>
+            <div className="flex bg-surface rounded-xl border border-border p-0.5">
+              {(["list", "grid"] as ViewMode[]).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setViewMode(m)}
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-black transition-all"
+                  style={{
+                    background: viewMode === m ? "#FF6B35" : "transparent",
+                    color: viewMode === m ? "#fff" : "#AAAACC",
+                  }}
+                >
+                  {m === "list" ? (
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <path d="M1 3h10M1 6h10M1 9h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    </svg>
+                  ) : (
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <rect x="1" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4" />
+                      <rect x="7" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4" />
+                      <rect x="1" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4" />
+                      <rect x="7" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  )}
+                  {m.toUpperCase()}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -225,7 +329,7 @@ export function GameplayPage() {
                 ))}
                 {filteredDares.length === 0 && (
                   <div className="col-span-2 text-white/40 text-center py-12">
-                    {dares.length === 0 ? "Loading dares…" : "No dares in this category"}
+                    {dares.length === 0 ? "Loading dares…" : "No dares match your filters"}
                   </div>
                 )}
               </div>
@@ -241,7 +345,7 @@ export function GameplayPage() {
                 ))}
                 {filteredDares.length === 0 && (
                   <div className="text-white/40 text-center py-12">
-                    {dares.length === 0 ? "Loading dares…" : "No dares in this category"}
+                    {dares.length === 0 ? "Loading dares…" : "No dares match your filters"}
                   </div>
                 )}
               </div>
@@ -275,9 +379,9 @@ export function GameplayPage() {
   );
 }
 
-// Inline list row component for list view mode
+// ─── Dare list row ────────────────────────────────────────────────────────────
+
 import type { DareSubmission } from "../types";
-import { CATEGORY_COLORS, CATEGORY_EMOJIS } from "../types";
 
 const DIFFICULTY_COLORS: Record<string, string> = {
   easy: "#A5D6A7",
@@ -318,7 +422,8 @@ function DareListRow({
       <div
         className="flex items-center justify-center flex-shrink-0 text-xl rounded-xl"
         style={{
-          width: 40, height: 40,
+          width: 40,
+          height: 40,
           background: done ? "rgba(76,175,80,0.18)" : `${color}18`,
           border: `1px solid ${done ? "rgba(76,175,80,0.35)" : `${color}33`}`,
         }}
@@ -330,7 +435,10 @@ function DareListRow({
       <div className="flex-1 min-w-0 flex flex-col gap-1">
         <p
           className="text-white text-sm font-bold leading-snug line-clamp-2"
-          style={{ textDecoration: done ? "line-through" : "none", textDecorationColor: "rgba(255,255,255,0.25)" }}
+          style={{
+            textDecoration: done ? "line-through" : "none",
+            textDecorationColor: "rgba(255,255,255,0.25)",
+          }}
         >
           {dare.text}
         </p>
@@ -349,7 +457,11 @@ function DareListRow({
           </span>
           {pending && (
             <span className="text-xs font-bold" style={{ color: "#CE93D8" }}>
-              {status === "needs_review" ? "🕐 host" : status === "rejected" ? "✕ retry" : "⏳ verifying"}
+              {status === "needs_review"
+                ? "🕐 host"
+                : status === "rejected"
+                ? "✕ retry"
+                : "⏳ verifying"}
             </span>
           )}
         </div>
@@ -358,14 +470,21 @@ function DareListRow({
       {/* Points */}
       <div className="flex-shrink-0 text-right">
         <div
-          className="font-black leading-none"
-          style={{ fontSize: 20, color: done ? "#4CAF50" : "#FFD700", fontVariantNumeric: "tabular-nums" }}
+          className="font-black leading-none tabular-nums"
+          style={{
+            fontSize: 20,
+            color: done ? "#4CAF50" : "#FFD700",
+          }}
         >
           {done ? `+${submission?.pointsAwarded ?? dare.points}` : dare.points}
         </div>
         <div
           className="font-black mt-0.5"
-          style={{ fontSize: 8, color: done ? "#4CAF50" : "#AAAACC", letterSpacing: 1 }}
+          style={{
+            fontSize: 8,
+            color: done ? "#4CAF50" : "#AAAACC",
+            letterSpacing: 1,
+          }}
         >
           PTS
         </div>
