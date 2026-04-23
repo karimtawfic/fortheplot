@@ -13,34 +13,34 @@ export function InstructionsPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-bg flex flex-col" style={{ color: "#fff" }}>
+    <div className="min-h-screen bg-bg flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-14 pb-3">
-        <div style={{ width: 56 }} />
-        <div style={{ fontSize: 16, fontWeight: 700 }}>How to Play</div>
+        <div className="w-14" />
+        <p className="text-base font-bold text-white">How to Play</p>
         <button
           onClick={() => navigate(-1)}
-          style={{ background: "none", border: "none", color: "#FF6B35", fontSize: 16, fontWeight: 700, cursor: "pointer" }}
-        >Done</button>
+          className="text-primary font-bold text-base"
+        >
+          Done
+        </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto flex flex-col" style={{ padding: "4px 18px 18px", gap: 8 }}>
+      <div className="flex-1 overflow-y-auto flex flex-col gap-2 px-5 pb-6">
         {STEPS.map((step) => (
-          <div key={step.n} style={{
-            display: "flex", gap: 11,
-            padding: "11px 12px", borderRadius: 13,
-            background: "#1A1A2E", border: "1px solid #2A2A4A",
-          }}>
-            <div style={{
-              width: 30, height: 30, borderRadius: 999, flexShrink: 0,
-              background: "linear-gradient(135deg, #FF6B35, #E94560)",
-              color: "#fff", fontWeight: 900, fontSize: 14,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 4px 12px rgba(255,107,53,0.3)",
-            }}>{step.n}</div>
-            <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 2, lineHeight: 1.2 }}>{step.title}</div>
-              <div style={{ fontSize: 12, color: "#AAAACC", lineHeight: 1.35 }}>{step.body}</div>
+          <div
+            key={step.n}
+            className="flex gap-3 p-3 rounded-2xl bg-surface border border-border"
+          >
+            <div
+              className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-black text-sm text-white"
+              style={{ background: "linear-gradient(135deg, #FF6B35, #E94560)" }}
+            >
+              {step.n}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-black mb-0.5 leading-tight text-white">{step.title}</p>
+              <p className="text-xs text-white/50 leading-relaxed">{step.body}</p>
             </div>
           </div>
         ))}

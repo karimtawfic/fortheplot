@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { joinRoom } from "../repositories/roomRepository";
 import { useAppStore } from "../store/appStore";
+import { Button } from "../components/Button";
 import { EMOJI_OPTIONS } from "../types";
 import type { Room, Player } from "../types";
 import { Timestamp } from "firebase/firestore";
@@ -74,66 +75,59 @@ export function JoinRoomPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg flex flex-col" style={{ color: "#fff" }}>
+    <div className="min-h-screen bg-bg flex flex-col">
       {/* Header */}
       <div className="flex items-center gap-3 px-5 pt-14 pb-2">
         <button
           onClick={() => navigate(-1)}
-          style={{
-            width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center",
-            borderRadius: 10, background: "#1A1A2E", border: "none", color: "#AAAACC",
-            cursor: "pointer", fontSize: 18,
-          }}
+          className="w-9 h-9 flex items-center justify-center rounded-xl bg-surface text-white/60 text-lg"
         >←</button>
-        <h1 style={{ fontSize: 17, fontWeight: 700, flex: 1, textAlign: "center", whiteSpace: "nowrap" }}>Join Room</h1>
-        <div style={{ width: 36 }} />
+        <h1 className="flex-1 text-center text-base font-black text-white">Join Room</h1>
+        <div className="w-9" />
       </div>
 
-      {/* 30s countdown ribbon */}
-      <div style={{
-        margin: "0 18px 8px", padding: "8px 12px", borderRadius: 11,
-        background: crit ? "rgba(233,69,96,0.14)" : "rgba(255,107,53,0.10)",
-        border: `1px solid ${crit ? "rgba(233,69,96,0.35)" : "rgba(255,107,53,0.25)"}`,
-        display: "flex", alignItems: "center", gap: 10,
-      }}>
-        <div style={{
-          width: 28, height: 28, borderRadius: 999,
-          background: crit ? "#E94560" : "#FF6B35",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 12, fontWeight: 900, color: "#fff", flexShrink: 0,
-        }}>{secs}</div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: crit ? "#E94560" : "#fff", lineHeight: 1.1 }}>
+      {/* Countdown ribbon */}
+      <div
+        className="mx-4 mb-2 px-3 py-2 rounded-xl border flex items-center gap-3"
+        style={{
+          background: crit ? "rgba(233,69,96,0.14)" : "rgba(255,107,53,0.10)",
+          borderColor: crit ? "rgba(233,69,96,0.35)" : "rgba(255,107,53,0.25)",
+        }}
+      >
+        <div
+          className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
+          style={{ background: crit ? "#E94560" : "#FF6B35" }}
+        >
+          {secs}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-black leading-tight" style={{ color: crit ? "#E94560" : "#fff" }}>
             {secs === 0 ? "Room may be closing" : `Join in ${secs}s`}
-          </div>
-          <div style={{ fontSize: 10, color: "#AAAACC", marginTop: 1 }}>Host starts soon</div>
+          </p>
+          <p className="text-[10px] text-white/50 mt-0.5">Host starts soon</p>
         </div>
-        <div style={{ width: 50, height: 3, borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
-          <div style={{
-            height: "100%", width: `${(secs / 30) * 100}%`,
-            background: crit ? "#E94560" : "#FF6B35",
-            transition: "width 0.3s linear",
-          }} />
+        <div className="w-12 h-0.5 rounded-full bg-white/10 overflow-hidden flex-shrink-0">
+          <div
+            className="h-full rounded-full transition-all duration-300 ease-linear"
+            style={{
+              width: `${(secs / 30) * 100}%`,
+              background: crit ? "#E94560" : "#FF6B35",
+            }}
+          />
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto flex flex-col" style={{ padding: "0 20px 20px", gap: 14 }}>
+      <div className="flex-1 overflow-y-auto flex flex-col gap-4 px-5 pb-8">
 
         {/* Room code */}
         <div>
-          <div style={{ fontSize: 9, fontWeight: 900, color: "#AAAACC", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, display: "flex", alignItems: "center", gap: 6 }}>
+          <label className="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
             <span>🔑</span> Room Code
-          </div>
+          </label>
           <input
-            style={{
-              width: "100%", boxSizing: "border-box",
-              padding: "10px", fontSize: 22, fontWeight: 900,
-              color: "#FF6B35", textAlign: "center",
-              letterSpacing: 6, fontFamily: "SF Mono, ui-monospace, monospace",
-              background: "#1A1A2E",
-              border: `1.5px solid ${inviteCode.length === 6 ? "#FF6B35" : "#2A2A4A"}`,
-              borderRadius: 12, outline: "none",
-            }}
+            className={`w-full bg-surface border-2 rounded-2xl px-4 py-3 text-3xl font-black text-center text-primary font-mono tracking-[0.4em] focus:outline-none transition-colors placeholder-white/20 ${
+              inviteCode.length === 6 ? "border-primary" : "border-border"
+            }`}
             placeholder="XXXXXX"
             value={inviteCode}
             onChange={(e) => setInviteCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
@@ -146,17 +140,13 @@ export function JoinRoomPage() {
 
         {/* Name */}
         <div>
-          <div style={{ fontSize: 9, fontWeight: 900, color: "#AAAACC", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, display: "flex", alignItems: "center", gap: 6 }}>
+          <label className="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
             <span>👤</span> Your Name
-          </div>
+          </label>
           <input
-            style={{
-              width: "100%", boxSizing: "border-box",
-              padding: "10px 14px", fontSize: 15, fontWeight: 600,
-              color: "#fff", background: "#1A1A2E",
-              border: `1.5px solid ${displayName ? "#FF6B35" : "#2A2A4A"}`,
-              borderRadius: 12, outline: "none", fontFamily: "inherit",
-            }}
+            className={`w-full bg-surface border rounded-2xl px-4 py-3 text-white text-sm font-semibold placeholder-white/30 focus:outline-none transition-colors ${
+              displayName ? "border-primary" : "border-border"
+            }`}
             placeholder="Enter your name..."
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
@@ -166,88 +156,79 @@ export function JoinRoomPage() {
 
         {/* Selfie */}
         <div>
-          <div style={{ fontSize: 9, fontWeight: 900, color: "#AAAACC", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, display: "flex", alignItems: "center", gap: 6 }}>
+          <label className="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
             <span>🤳</span> Your Selfie
-          </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "stretch" }}>
+          </label>
+          <div className="flex gap-3 items-stretch">
             <input ref={fileRef} type="file" accept="image/*" capture="user" className="hidden" onChange={handleSelfieChange} />
-            <div
+            <button
+              type="button"
               onClick={() => fileRef.current?.click()}
-              style={{
-                width: 70, height: 70, borderRadius: 16, cursor: "pointer",
-                overflow: "hidden", position: "relative", flexShrink: 0,
-                background: selfie ? "#000" : "#1A1A2E",
-                border: `2px ${selfie ? "solid" : "dashed"} ${selfie ? "#FF6B35" : "#2A2A4A"}`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}
+              className={`w-16 h-16 rounded-2xl flex-shrink-0 flex flex-col items-center justify-center border-2 overflow-hidden transition-all ${
+                selfie ? "border-primary" : "border-dashed border-border bg-surface"
+              }`}
             >
               {selfie ? (
-                <img src={selfie} alt="selfie" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={selfie} alt="selfie" className="w-full h-full object-cover" />
               ) : (
-                <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 22 }}>📷</div>
-                  <div style={{ fontSize: 8, color: "#AAAACC", fontWeight: 800, marginTop: 1, letterSpacing: 0.3 }}>ADD</div>
-                </div>
+                <>
+                  <span className="text-2xl">📷</span>
+                  <span className="text-[8px] text-white/50 font-black mt-0.5 tracking-wide">ADD</span>
+                </>
               )}
-            </div>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 3 }}>
-              <div style={{ fontSize: 12, fontWeight: 700 }}>{selfie ? "Looking good 😎" : "Snap a selfie"}</div>
-              <div style={{ fontSize: 10, color: "#AAAACC", lineHeight: 1.3 }}>
+            </button>
+            <div className="flex-1 flex flex-col justify-center gap-1">
+              <p className="text-sm font-bold text-white">{selfie ? "Looking good 😎" : "Snap a selfie"}</p>
+              <p className="text-[10px] text-white/50 leading-relaxed">
                 Shows on the lobby + leaderboard. Tap to {selfie ? "replace" : "use camera"}.
-              </div>
+              </p>
               {selfie && (
                 <button
+                  type="button"
                   onClick={() => setSelfie(null)}
-                  style={{
-                    alignSelf: "flex-start", marginTop: 2, padding: "3px 7px", borderRadius: 7,
-                    background: "transparent", border: "1px solid #2A2A4A", color: "#AAAACC",
-                    fontSize: 9, fontWeight: 800, cursor: "pointer", letterSpacing: 0.3, fontFamily: "inherit",
-                  }}
-                >REMOVE</button>
+                  className="self-start mt-1 px-2 py-1 rounded-lg border border-border text-[9px] font-black text-white/50 tracking-wide"
+                >
+                  REMOVE
+                </button>
               )}
             </div>
           </div>
         </div>
 
-        {/* Avatar strip — first 10 */}
+        {/* Avatar strip */}
         <div>
-          <div style={{ fontSize: 9, fontWeight: 900, color: "#AAAACC", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, display: "flex", alignItems: "center", gap: 6 }}>
+          <label className="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
             <span>😀</span> Or Pick an Avatar
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: 4 }}>
+          </label>
+          <div className="grid grid-cols-10 gap-1">
             {EMOJI_OPTIONS.slice(0, 10).map((emoji) => (
               <button
                 key={emoji}
+                type="button"
                 onClick={() => setAvatarEmoji(emoji)}
-                style={{
-                  aspectRatio: "1/1", fontSize: 18, cursor: "pointer", padding: 0,
-                  background: avatarEmoji === emoji ? "rgba(255,107,53,0.22)" : "#1A1A2E",
-                  border: `2px solid ${avatarEmoji === emoji ? "#FF6B35" : "transparent"}`,
-                  borderRadius: 9,
-                }}
-              >{emoji}</button>
+                className={`aspect-square text-lg rounded-xl transition-all ${
+                  avatarEmoji === emoji
+                    ? "bg-primary/20 ring-2 ring-primary scale-110"
+                    : "bg-surface hover:bg-surface/80"
+                }`}
+              >
+                {emoji}
+              </button>
             ))}
           </div>
         </div>
 
-        {error && <p style={{ color: "#E94560", fontSize: 14, textAlign: "center", margin: 0 }}>{error}</p>}
+        {error && <p className="text-accent text-sm text-center">{error}</p>}
 
-        <button
-          onClick={handleJoin}
+        <Button
+          size="lg"
+          loading={loading}
           disabled={loading || !displayName.trim() || inviteCode.length !== 6}
-          style={{
-            width: "100%", height: 56, border: "none", cursor: "pointer",
-            borderRadius: 16,
-            background: (loading || !displayName.trim() || inviteCode.length !== 6)
-              ? "#2A2A4A"
-              : "linear-gradient(135deg, #FF6B35, #E94560)",
-            color: "#fff", fontSize: 17, fontWeight: 800,
-            opacity: (loading || !displayName.trim() || inviteCode.length !== 6) ? 0.5 : 1,
-            fontFamily: "inherit",
-          }}
+          onClick={handleJoin}
+          className="w-full"
         >
-          {loading ? "Joining…" : "Join Room"}
-        </button>
+          Join Room
+        </Button>
       </div>
     </div>
   );
