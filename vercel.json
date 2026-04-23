@@ -1,4 +1,5 @@
 {
+  "alias": ["for-the-plot.vercel.app"],
   "buildCommand": "npm install && cd web-app && npm install && npm run build",
   "outputDirectory": "web-app/dist",
   "framework": null,
