@@ -4,7 +4,6 @@ import { DareCard } from "../components/DareCard";
 import { Timer } from "../components/Timer";
 import { Scoreboard } from "../components/Scoreboard";
 import { ProofUpload } from "../components/ProofUpload";
-import { CategoryChip } from "../components/CategoryChip";
 import { useRoom, usePlayers } from "../hooks/useRoom";
 import { useDares } from "../hooks/useDares";
 import { useMySubmissions } from "../hooks/useSubmissions";
@@ -23,6 +22,14 @@ const CATEGORY_FILTERS: Array<{ label: string; value: DareCategory | "all" }> = 
   { label: "Outdoor", value: "outdoor" },
 ];
 
+type PointsFilter = "all" | "low" | "mid" | "high";
+const POINTS_FILTERS: Array<{ label: string; value: PointsFilter; test: (p: number) => boolean }> = [
+  { label: "Any", value: "all", test: () => true },
+  { label: "≤ 25", value: "low", test: (p) => p <= 25 },
+  { label: "26–50", value: "mid", test: (p) => p > 25 && p <= 50 },
+  { label: "51+", value: "high", test: (p) => p > 50 },
+];
+
 export function GameplayPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
@@ -37,8 +44,9 @@ export function GameplayPage() {
 
   const [tab, setTab] = useState<Tab>("dares");
   const [selectedDare, setSelectedDare] = useState<Dare | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [categoryFilter, setCategoryFilter] = useState<DareCategory | "all">("all");
+  const [pointsFilter, setPointsFilter] = useState<PointsFilter>("all");
 
   const isHost = room?.hostPlayerId === currentPlayer?.playerId;
 
@@ -62,9 +70,12 @@ export function GameplayPage() {
     }
   }
 
-  const filteredDares = categoryFilter === "all"
-    ? dares
-    : dares.filter((d) => d.category === categoryFilter);
+  const pointsBucket = POINTS_FILTERS.find((b) => b.value === pointsFilter)!;
+  const filteredDares = dares.filter(
+    (d) =>
+      (categoryFilter === "all" || d.category === categoryFilter) &&
+      pointsBucket.test(d.points)
+  );
 
   const completedCount = submittedDareIds.size;
   const progressPct = dares.length > 0 ? Math.min((completedCount / dares.length) * 100, 100) : 0;
@@ -133,49 +144,70 @@ export function GameplayPage() {
       {tab === "dares" && (
         <>
           {/* Filters + view toggle */}
-          <div className="flex items-center gap-3 px-4 pt-3 pb-2">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1">
-              {CATEGORY_FILTERS.map((f) => (
-                <button
-                  key={f.value}
-                  onClick={() => setCategoryFilter(f.value)}
-                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
-                    categoryFilter === f.value
-                      ? "text-white border-transparent"
-                      : "text-white/50 border-border hover:border-white/20 bg-surface"
-                  }`}
-                  style={
-                    categoryFilter === f.value
-                      ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" }
-                      : undefined
-                  }
-                >
-                  {f.label}
-                </button>
-              ))}
+          <div className="px-4 pt-3 pb-2 border-b border-white/5" style={{ background: "rgba(0,0,0,0.15)" }}>
+            {/* Category row */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-white/30 font-black uppercase flex-shrink-0" style={{ fontSize: 9, letterSpacing: "0.08em" }}>CAT</span>
+              <div className="flex gap-1.5 overflow-x-auto no-scrollbar flex-1">
+                {CATEGORY_FILTERS.map((f) => (
+                  <button
+                    key={f.value}
+                    onClick={() => setCategoryFilter(f.value)}
+                    className={`flex-shrink-0 px-2.5 py-1 rounded-full font-bold transition-all border ${
+                      categoryFilter === f.value
+                        ? "text-white border-transparent"
+                        : "text-white/50 border-border bg-transparent"
+                    }`}
+                    style={{
+                      fontSize: 10,
+                      ...(categoryFilter === f.value
+                        ? { background: "linear-gradient(135deg, #FF6B35, #E94560)" }
+                        : undefined),
+                    }}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex gap-1 flex-shrink-0">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-xl transition-colors ${viewMode === "grid" ? "bg-primary/20 text-primary" : "text-white/30 hover:text-white/60"}`}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                  <rect x="0" y="0" width="7" height="7" rx="1.5" />
-                  <rect x="9" y="0" width="7" height="7" rx="1.5" />
-                  <rect x="0" y="9" width="7" height="7" rx="1.5" />
-                  <rect x="9" y="9" width="7" height="7" rx="1.5" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={`p-2 rounded-xl transition-colors ${viewMode === "list" ? "bg-primary/20 text-primary" : "text-white/30 hover:text-white/60"}`}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                  <rect x="0" y="1" width="16" height="3" rx="1.5" />
-                  <rect x="0" y="6.5" width="16" height="3" rx="1.5" />
-                  <rect x="0" y="12" width="16" height="3" rx="1.5" />
-                </svg>
-              </button>
+
+            {/* Points row + view toggle */}
+            <div className="flex items-center gap-2">
+              <span className="text-white/30 font-black uppercase flex-shrink-0" style={{ fontSize: 9, letterSpacing: "0.08em" }}>PTS</span>
+              <div className="flex gap-1.5 flex-1">
+                {POINTS_FILTERS.map((b) => (
+                  <button
+                    key={b.value}
+                    onClick={() => setPointsFilter(b.value)}
+                    className={`flex-1 py-1 rounded-lg font-black transition-all border ${
+                      pointsFilter === b.value
+                        ? "text-white border-transparent"
+                        : "text-white/40 border-border bg-transparent"
+                    }`}
+                    style={{
+                      fontSize: 10,
+                      letterSpacing: "0.03em",
+                      ...(pointsFilter === b.value ? { background: "#FF6B35" } : undefined),
+                    }}
+                  >
+                    {b.label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-0.5 flex-shrink-0 bg-surface rounded-xl border border-border p-0.5">
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-1.5 rounded-lg transition-colors ${viewMode === "list" ? "bg-primary/20 text-primary" : "text-white/30"}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1 3h10M1 6h10M1 9h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+                </button>
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`p-1.5 rounded-lg transition-colors ${viewMode === "grid" ? "bg-primary/20 text-primary" : "text-white/30"}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="7" y="1" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="1" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/><rect x="7" y="7" width="4" height="4" rx="0.8" stroke="currentColor" strokeWidth="1.4"/></svg>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -245,8 +277,14 @@ export function GameplayPage() {
 
 // Inline list row component for list view mode
 import type { DareSubmission } from "../types";
-import { PointsBadge } from "../components/PointsBadge";
 import { CATEGORY_COLORS, CATEGORY_EMOJIS } from "../types";
+
+const DIFFICULTY_COLORS: Record<string, string> = {
+  easy: "#A5D6A7",
+  medium: "#FFF176",
+  hard: "#FF8A65",
+  wild: "#E94560",
+};
 
 function DareListRow({
   dare,
@@ -260,26 +298,77 @@ function DareListRow({
   const color = CATEGORY_COLORS[dare.category];
   const emoji = CATEGORY_EMOJIS[dare.category];
   const status = submission?.verificationStatus ?? null;
+  const done = status === "approved";
+  const pending = status && status !== "approved";
+  const diffColor = DIFFICULTY_COLORS[dare.difficulty] ?? "#AAAACC";
+  const catLabel = dare.category.charAt(0).toUpperCase() + dare.category.slice(1);
 
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 p-3.5 rounded-2xl border text-left transition-all active:scale-[0.98]"
-      style={{ borderColor: `${color}33`, background: `linear-gradient(135deg, ${color}11 0%, #1A1A2E 100%)` }}
+      className="w-full flex items-center gap-3 rounded-xl text-left transition-all active:scale-[0.98]"
+      style={{
+        padding: "12px 14px",
+        background: done ? "rgba(76,175,80,0.08)" : "#1A1A2E",
+        border: `1px solid ${done ? "rgba(76,175,80,0.35)" : "#2A2A4A"}`,
+        borderLeft: `3px solid ${done ? "#4CAF50" : color}`,
+      }}
     >
-      <span className="text-2xl w-9 text-center flex-shrink-0">{emoji}</span>
-      <div className="flex-1 min-w-0">
-        <p className="text-white text-sm font-semibold leading-snug line-clamp-2">{dare.text}</p>
-        <div className="flex items-center gap-2 mt-1.5">
-          <CategoryChip category={dare.category} size="sm" />
+      {/* Icon box */}
+      <div
+        className="flex items-center justify-center flex-shrink-0 text-xl rounded-xl"
+        style={{
+          width: 40, height: 40,
+          background: done ? "rgba(76,175,80,0.18)" : `${color}18`,
+          border: `1px solid ${done ? "rgba(76,175,80,0.35)" : `${color}33`}`,
+        }}
+      >
+        {done ? "✓" : emoji}
+      </div>
+
+      {/* Text block */}
+      <div className="flex-1 min-w-0 flex flex-col gap-1">
+        <p
+          className="text-white text-sm font-bold leading-snug line-clamp-2"
+          style={{ textDecoration: done ? "line-through" : "none", textDecorationColor: "rgba(255,255,255,0.25)" }}
+        >
+          {dare.text}
+        </p>
+        <div className="flex items-center gap-2">
+          <span
+            className="font-black uppercase"
+            style={{ fontSize: 9, letterSpacing: "0.07em", color }}
+          >
+            {catLabel}
+          </span>
+          <span
+            className="font-black uppercase"
+            style={{ fontSize: 9, letterSpacing: "0.07em", color: diffColor }}
+          >
+            ● {dare.difficulty}
+          </span>
+          {pending && (
+            <span className="text-xs font-bold" style={{ color: "#CE93D8" }}>
+              {status === "needs_review" ? "🕐 host" : status === "rejected" ? "✕ retry" : "⏳ verifying"}
+            </span>
+          )}
         </div>
       </div>
-      <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
-        <PointsBadge points={dare.points} size="sm" />
-        {status === "approved" && <span className="text-lg">✅</span>}
-        {status === "pending" && <span className="text-lg">⏳</span>}
-        {status === "rejected" && <span className="text-xs text-primary font-semibold">Retry</span>}
-        {status === "needs_review" && <span className="text-lg">🕐</span>}
+
+      {/* Points */}
+      <div className="flex-shrink-0 text-right">
+        <div
+          className="font-black leading-none"
+          style={{ fontSize: 20, color: done ? "#4CAF50" : "#FFD700", fontVariantNumeric: "tabular-nums" }}
+        >
+          {done ? `+${submission?.pointsAwarded ?? dare.points}` : dare.points}
+        </div>
+        <div
+          className="font-black mt-0.5"
+          style={{ fontSize: 8, color: done ? "#4CAF50" : "#AAAACC", letterSpacing: 1 }}
+        >
+          PTS
+        </div>
       </div>
     </button>
   );
