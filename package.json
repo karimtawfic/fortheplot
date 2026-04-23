@@ -1,0 +1,11 @@
+{
+  "name": "fortheplot-api",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase-admin": "^12.2.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.2.14"
+  }
+}
