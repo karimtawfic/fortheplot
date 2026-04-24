@@ -19,6 +19,9 @@ export const startGame = (roomId: string) =>
 export const endGame = (roomId: string) =>
   callApi<void>("/api/endGame", { roomId });
 
+export const cleanupRoom = (roomId: string) =>
+  callApi<{ cleaned: boolean }>("/api/cleanupRoom", { roomId });
+
 export function subscribeToRoom(
   roomId: string,
   onData: (room: Room | null) => void,
