@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
 import { useRoom, usePlayers } from "../hooks/useRoom";
+import { useMySubmissions } from "../hooks/useSubmissions";
 import { useAppStore } from "../store/appStore";
 import { buildLeaderboard } from "../types";
+import { saveGame, loadGame } from "../lib/gameStorage";
+import { cleanupRoom } from "../repositories/roomRepository";
 
 const CONFETTI_COLORS = ["#FF6B35", "#E94560", "#FFD700", "#4FC3F7", "#CE93D8"];
 
@@ -13,18 +16,70 @@ export function GameEndPage() {
   const { currentPlayer, updateRoom } = useAppStore();
   const { room } = useRoom(roomId ?? null);
   const players = usePlayers(roomId ?? null);
+  const { submissions } = useMySubmissions(roomId ?? null, currentPlayer?.playerId ?? null);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
     if (room) updateRoom(room);
   }, [room, updateRoom]);
 
-  const leaderboard = buildLeaderboard(players);
+  // Snapshot full game state to localStorage as soon as live data arrives
+  useEffect(() => {
+    if (!room || !currentPlayer || players.length === 0) return;
+    const leaderboard = buildLeaderboard(players);
+    saveGame({
+      roomId: room.roomId,
+      inviteCode: room.inviteCode,
+      hostPlayerId: room.hostPlayerId,
+      savedAt: new Date().toISOString(),
+      timerMinutes: room.timerMinutes,
+      myPlayerId: currentPlayer.playerId,
+      players: leaderboard.map((e) => ({
+        playerId: e.playerId,
+        displayName: e.displayName,
+        avatarEmoji: e.avatarEmoji,
+        totalPoints: e.totalPoints,
+        rank: e.rank,
+      })),
+      mySubmissions: submissions.map((s) => ({
+        submissionId: s.submissionId,
+        dareId: s.dareId,
+        dareText: s.dareTextSnapshot,
+        pointsAwarded: s.pointsAwarded,
+        mediaType: s.mediaType,
+        mediaUrl: s.mediaUrl,
+        thumbnailUrl: s.thumbnailUrl,
+        verificationStatus: s.verificationStatus,
+      })),
+    });
+  }, [room, players, submissions, currentPlayer]);
+
+  // Fall back to localStorage snapshot if Firestore data is gone (post-cleanup)
+  const saved = roomId ? loadGame(roomId) : null;
+  const leaderboard =
+    players.length > 0 ? buildLeaderboard(players) : (saved?.players ?? []);
+
   const winner = leaderboard[0];
   const me = leaderboard.find((e) => e.playerId === currentPlayer?.playerId);
   const myRank = me?.rank ?? 0;
   const myPoints = me?.totalPoints ?? 0;
   const isWinner = winner?.playerId === currentPlayer?.playerId;
   const rankEmoji = myRank === 1 ? "🥇" : myRank === 2 ? "🥈" : myRank === 3 ? "🥉" : null;
+  const isHost =
+    (room?.hostPlayerId ?? saved?.hostPlayerId) === currentPlayer?.playerId;
+
+  async function handleBackToHome() {
+    setLeaving(true);
+    if (isHost && roomId) {
+      try {
+        await cleanupRoom(roomId);
+      } catch {
+        // Cleanup failed — non-critical, data will expire naturally
+      }
+    }
+    useAppStore.getState().clearSession();
+    navigate("/home", { replace: true });
+  }
 
   return (
     <div className="min-h-screen bg-bg flex flex-col px-5 relative overflow-hidden">
@@ -189,10 +244,8 @@ export function GameEndPage() {
           <Button
             variant="ghost"
             className="w-full"
-            onClick={() => {
-              useAppStore.getState().clearSession();
-              navigate("/home", { replace: true });
-            }}
+            loading={leaving}
+            onClick={handleBackToHome}
           >
             🏠 Back to Home
           </Button>
