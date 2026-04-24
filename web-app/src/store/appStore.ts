@@ -22,7 +22,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   currentUser: null,
-  isAuthenticating: false,
+  isAuthenticating: true,
   currentRoom: null,
   currentPlayer: null,
 

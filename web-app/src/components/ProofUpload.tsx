@@ -44,9 +44,14 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
     setPreview(URL.createObjectURL(file));
   }
 
-  function triggerPicker(accept: string) {
+  function triggerPicker(accept: string, capture?: boolean) {
     if (!fileRef.current) return;
     fileRef.current.accept = accept;
+    if (capture) {
+      fileRef.current.setAttribute("capture", "environment");
+    } else {
+      fileRef.current.removeAttribute("capture");
+    }
     fileRef.current.click();
   }
 
@@ -296,7 +301,6 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
         ref={fileRef}
         type="file"
         accept="image/*,video/*"
-        capture="environment"
         className="hidden"
         onChange={handleFileChange}
       />
@@ -322,10 +326,10 @@ export function ProofUpload({ dare, roomId, onSuccess, onCancel }: ProofUploadPr
             { label: "📷 Camera", accept: "image/*", capture: true },
             { label: "🖼 Photo", accept: "image/*", capture: false },
             { label: "🎥 Video", accept: "video/*", capture: true },
-          ].map(({ label, accept }) => (
+          ].map(({ label, accept, capture }) => (
             <button
               key={label}
-              onClick={() => triggerPicker(accept)}
+              onClick={() => triggerPicker(accept, capture)}
               className="flex-1 rounded-xl font-bold border transition-all active:scale-95"
               style={{
                 height: 46,
